@@ -89,15 +89,17 @@ I showcased two ways of inplementation: one implemented using UIKit + RxSwift, a
 
 ## How to run
 - Go to "https://developer.themoviedb.org/reference/intro/authentication" , register and get your own access token authentication.
-  
-![](https://github.com/anhngoit/iOSSkeletonApp/blob/main/iOSSkeletonApp/Resources/Assets.xcassets/access_token_authen.imageset/access_token_authen.png)
+
+<img src="https://github.com/anhngoit/iOSSkeletonApp/blob/main/iOSSkeletonApp/Resources/Assets.xcassets/access_token_authen.imageset/access_token_authen.png" width="50%">
 
 - The application has been set up with 4 schemas for 4 environments with 4 config file.
-  
-![](https://github.com/anhngoit/iOSSkeletonApp/blob/main/iOSSkeletonApp/Resources/Assets.xcassets/schema.imageset/Screenshot%202024-09-20%20at%2016.59.14.png)
+
+<img src="https://github.com/anhngoit/iOSSkeletonApp/blob/main/iOSSkeletonApp/Resources/Assets.xcassets/schema.imageset/Screenshot%202024-09-20%20at%2016.59.14.png" width="65%">
 
 - Select a schema and go to the corresponding config file.
-- Add your access token authentication to field "ACCESS_TOKEN_AUTHEN"
-- Run app and see the result
   
-![](https://github.com/anhngoit/iOSSkeletonApp/blob/main/iOSSkeletonApp/Resources/Assets.xcassets/app_screen.imageset/app_screen.png)
+- Add your access token authentication to field "ACCESS_TOKEN_AUTHEN"
+  
+- Run app and see the result
+
+<img src="https://github.com/anhngoit/iOSSkeletonApp/blob/main/iOSSkeletonApp/Resources/Assets.xcassets/app_screen.imageset/app_screen.png" width="35%">
