@@ -1,4 +1,4 @@
-/Users/anh.ngo/Library/Mobile Documents/com~apple~CloudDocs/SourceCode/GitHub/iOSSkeletonApp/iOSSkeletonApp/Resources/Assets.xcassets/banner.png
+![](https://github.com/anhngoit/iOSSkeletonApp/blob/main/iOSSkeletonApp/Resources/Assets.xcassets/banner.imageset/banner.png)
 
 #  iOS Skeleton Application
 - An template iOS Application that follows community best practice
@@ -18,7 +18,7 @@
 - [ ] Full test coverage
 
 ## Architecture Overview
-/Users/anh.ngo/Library/Mobile Documents/com~apple~CloudDocs/SourceCode/GitHub/iOSSkeletonApp/iOSSkeletonApp/Resources/Assets.xcassets/architecture_overview
+![](https://github.com/anhngoit/iOSSkeletonApp/blob/main/iOSSkeletonApp/Resources/Assets.xcassets/architecture_overview.imageset/architecture_overview.png)
 
 ### Architecture Pattern:
 - **Clean Architecture:** Separates the application into multiple layers (Presentation, Domain, Data) to isolate business logic from UI and data management.
@@ -89,10 +89,15 @@ I showcased two ways of inplementation: one implemented using UIKit + RxSwift, a
 
 ## How to run
 - Go to "https://developer.themoviedb.org/reference/intro/authentication" , register and get your own access token authentication.
-/Users/anh.ngo/Library/Mobile Documents/com~apple~CloudDocs/SourceCode/GitHub/iOSSkeletonApp/iOSSkeletonApp/Resources/Assets.xcassets/app_screen.imageset/access_token_authen
+  
+![](https://github.com/anhngoit/iOSSkeletonApp/blob/main/iOSSkeletonApp/Resources/Assets.xcassets/access_token_authen.imageset/access_token_authen.png)
+
 - The application has been set up with 4 schemas for 4 environments with 4 config file.
-/Users/anh.ngo/Library/Mobile Documents/com~apple~CloudDocs/SourceCode/GitHub/iOSSkeletonApp/iOSSkeletonApp/Resources/Assets.xcassets/app_screen.imageset/schema
+  
+![](https://github.com/anhngoit/iOSSkeletonApp/blob/main/iOSSkeletonApp/Resources/Assets.xcassets/schema.imageset/Screenshot%202024-09-20%20at%2016.59.14.png)
+
 - Select a schema and go to the corresponding config file.
 - Add your access token authentication to field "ACCESS_TOKEN_AUTHEN"
 - Run app and see the result
-/Users/anh.ngo/Library/Mobile Documents/com~apple~CloudDocs/SourceCode/GitHub/iOSSkeletonApp/iOSSkeletonApp/Resources/Assets.xcassets/app_screen.imageset/app_screen
+  
+![](https://github.com/anhngoit/iOSSkeletonApp/blob/main/iOSSkeletonApp/Resources/Assets.xcassets/app_screen.imageset/app_screen.png)
