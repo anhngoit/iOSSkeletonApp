@@ -62,7 +62,9 @@ class MovieListViewModel2: ObservableObject {
                     self.totalPageCount = movieResponse.totalPages
                     let toIndex = movieResponse.page*20-1
                     let fromIndex = toIndex - 20 + 1
-                    self.movies.removeSubrange(fromIndex...toIndex)
+                    if self.movies.count > fromIndex {
+                        self.movies.removeSubrange(fromIndex...toIndex)
+                    }
                     self.movies.append(contentsOf: movieResponse.movies)
                 }
             })

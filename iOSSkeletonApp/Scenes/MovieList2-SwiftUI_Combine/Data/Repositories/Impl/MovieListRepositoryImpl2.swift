@@ -11,11 +11,14 @@ import Moya
 class MovieListRepositoryImpl2: MovieListRepository2 {
 
     private let movieApiDataSource: MoyaProvider<MovieAPI>
-    private let movieLocalDataSource: RealmDataSource<MovieResponseRModel>
+//    private let movieLocalDataSource: RealmDataSource<MovieResponseRModel>
+    private let movieLocalDataSource: CoreDataSource<MovieResponseCDModel>
     
     init(movieApiDataSource: MoyaProvider<MovieAPI>, movieLocalDataSource: RealmDataSource<MovieResponseRModel>) {
         self.movieApiDataSource = movieApiDataSource
-        self.movieLocalDataSource = movieLocalDataSource
+//        self.movieLocalDataSource = movieLocalDataSource
+        self.movieLocalDataSource = CoreDataSource<MovieResponseCDModel>()
+        
     }
 
     func getRemotePopularMovies(page: Int) async throws -> MovieResponse {
@@ -34,7 +37,8 @@ class MovieListRepositoryImpl2: MovieListRepository2 {
 
     func savePopularMovies(movieResponse: MovieResponse) {
         do {
-            let movieResponseRModel = movieResponse.toReamModel()
+//            let movieResponseRModel = movieResponse.toReamModel()
+            let movieResponseRModel = movieResponse.toCDModel()
             try movieLocalDataSource.createOrUpdate(item: movieResponseRModel)
         } catch {
             print("Failed to save popular movies: \(error)")
