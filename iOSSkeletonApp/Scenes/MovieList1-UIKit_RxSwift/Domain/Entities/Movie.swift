@@ -31,6 +31,10 @@ struct Genre: Equatable, Identifiable {
     func toRealmModel() -> GenreRModel {
         return GenreRModel(id: id, name: name)
     }
+    
+    func toCDModel() -> GenreCDModel {
+        return GenreCDModel(id: Int32(id), name: name, context: CoreDataStack.shared.context)
+    }
 }
 
 
@@ -60,6 +64,18 @@ extension Movie {
                      overview: overview,
                      releaseDate: releaseDate)
     }
+    
+    func toCDModel() -> MovieCDModel {
+        var genreList = [GenreCDModel]()
+        genreList = genres.map{ $0.toCDModel() }
+        return .init(id: Int32(id) ?? 0,
+                     title: title,
+                     genres: NSSet(array: genreList),
+                     posterPath: posterPath,
+                     backdropPath: backdropPath,
+                     overview: overview,
+                     releaseDate: releaseDate, context: CoreDataStack.shared.context)
+    }
 }
 
 // MARK: - stub
@@ -84,7 +100,7 @@ extension Movie {
         Movie(id: id,
               title: title,
               genres: genre,
-              posterPath: posterPath, 
+              posterPath: posterPath,
               backdropPath: backdropPath,
               overview: overview,
               releaseDate: releaseDate)

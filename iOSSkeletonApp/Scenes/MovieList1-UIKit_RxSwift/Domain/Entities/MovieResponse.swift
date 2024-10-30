@@ -30,4 +30,12 @@ extension MovieResponse {
                      totalPages: totalPages,
                      movies: movieList)
     }
+    
+    func toCDModel() -> MovieResponseCDModel {
+        var movieList = [MovieCDModel]()
+        movieList = movies.map {$0.toCDModel()}
+        return .init(page: Int32(page),
+                     totalPages: Int32(totalPages),
+                     movies: NSSet(array: movieList), context: CoreDataStack.shared.context)
+    }
 }

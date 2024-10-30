@@ -61,6 +61,10 @@
 		CC4313D52C8FF04100DACDF4 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CC4313D42C8FF04100DACDF4 /* RealmSwift */; };
 		CC4313DC2C9000BF00DACDF4 /* MovieResponseRModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4313D92C8FF2B400DACDF4 /* MovieResponseRModel.swift */; };
 		CC4313DD2C9000C200DACDF4 /* MovieRModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4313D82C8FF2B300DACDF4 /* MovieRModel.swift */; };
+		CC97AE502CD1F7D30051621D /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC97AE4F2CD1F7D30051621D /* CoreDataStack.swift */; };
+		CC97AE532CD1F7F50051621D /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CC97AE512CD1F7F50051621D /* Model.xcdatamodeld */; };
+		CC97AE572CD2005E0051621D /* MovieCDModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC97AE542CD200500051621D /* MovieCDModel.swift */; };
+		CC97AE582CD200610051621D /* MovieResponseCDModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC97AE552CD200500051621D /* MovieResponseCDModel.swift */; };
 		CCDFC02A2CCF844A003B9B44 /* MovieDetail.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CCDFC0292CCF844A003B9B44 /* MovieDetail.xcassets */; };
 /* End PBXBuildFile section */
 
@@ -140,6 +144,10 @@
 		CC4255892C8DE824000807ED /* RealmDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmDataSource.swift; sourceTree = "<group>"; };
 		CC4313D82C8FF2B300DACDF4 /* MovieRModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieRModel.swift; sourceTree = "<group>"; };
 		CC4313D92C8FF2B400DACDF4 /* MovieResponseRModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieResponseRModel.swift; sourceTree = "<group>"; };
+		CC97AE4F2CD1F7D30051621D /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		CC97AE522CD1F7F50051621D /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		CC97AE542CD200500051621D /* MovieCDModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCDModel.swift; sourceTree = "<group>"; };
+		CC97AE552CD200500051621D /* MovieResponseCDModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieResponseCDModel.swift; sourceTree = "<group>"; };
 		CCDFC0292CCF844A003B9B44 /* MovieDetail.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MovieDetail.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -359,6 +367,7 @@
 				6D534EF32C8964B1007563ED /* MovieDTO.swift */,
 				6D534EF42C8964B1007563ED /* MovieResponseDTO.swift */,
 				CC4313D72C8FF2A000DACDF4 /* Realm */,
+				CC97AE562CD200500051621D /* CoreData */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -544,6 +553,7 @@
 		6D534F512C89690B007563ED /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				CC97AE512CD1F7F50051621D /* Model.xcdatamodeld */,
 				6D534EB32C896480007563ED /* Assets.xcassets */,
 				6DFFDDE22C9D866B00336890 /* Localizable.xcstrings */,
 			);
@@ -662,6 +672,7 @@
 				CC4255832C8DE7AE000807ED /* LocalStorage.swift */,
 				CC4255892C8DE824000807ED /* RealmDataSource.swift */,
 				CC4255872C8DE7FD000807ED /* CoreDataSource.swift */,
+				CC97AE4F2CD1F7D30051621D /* CoreDataStack.swift */,
 			);
 			path = LocalStorage;
 			sourceTree = "<group>";
@@ -673,6 +684,15 @@
 				CC4313D92C8FF2B400DACDF4 /* MovieResponseRModel.swift */,
 			);
 			path = Realm;
+			sourceTree = "<group>";
+		};
+		CC97AE562CD200500051621D /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				CC97AE542CD200500051621D /* MovieCDModel.swift */,
+				CC97AE552CD200500051621D /* MovieResponseCDModel.swift */,
+			);
+			path = CoreData;
 			sourceTree = "<group>";
 		};
 		CCDFC0212CCF8039003B9B44 /* Utilities */ = {
@@ -885,15 +905,19 @@
 				6D534F272C8964B2007563ED /* MovieDetailViewController.swift in Sources */,
 				6D534F242C8964B2007563ED /* MovieDetailUseCase.swift in Sources */,
 				6D534F722C8AE13E007563ED /* DIContainer.swift in Sources */,
+				CC97AE502CD1F7D30051621D /* CoreDataStack.swift in Sources */,
+				CC97AE532CD1F7F50051621D /* Model.xcdatamodeld in Sources */,
 				6D534F432C8964B2007563ED /* MoyaProvider.swift in Sources */,
 				CC4313DD2C9000C200DACDF4 /* MovieRModel.swift in Sources */,
 				6D534F382C8964B2007563ED /* MovieCollectionViewCell.swift in Sources */,
 				6D8BFF3F2C917F09008DB0C4 /* MovieItem.swift in Sources */,
+				CC97AE572CD2005E0051621D /* MovieCDModel.swift in Sources */,
 				6D534F2C2C8964B2007563ED /* MovieResponseDTO.swift in Sources */,
 				6D534F232C8964B2007563ED /* MovieDetailRepository.swift in Sources */,
 				6D8BFF2E2C9173D1008DB0C4 /* MovieListUseCase2.swift in Sources */,
 				6D534F3F2C8964B2007563ED /* MovieListViewModel2.swift in Sources */,
 				6D534F362C8964B2007563ED /* MovieListUseCase.swift in Sources */,
+				CC97AE582CD200610051621D /* MovieResponseCDModel.swift in Sources */,
 				6D8BFF332C9174B3008DB0C4 /* MovieListRepositoryImpl2.swift in Sources */,
 				6D534F412C8964B2007563ED /* AppConstants.swift in Sources */,
 				6D534F6C2C8AB68F007563ED /* FirstTabCoordinator.swift in Sources */,
@@ -1621,6 +1645,20 @@
 			productName = RealmSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		CC97AE512CD1F7F50051621D /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				CC97AE522CD1F7F50051621D /* Model.xcdatamodel */,
+			);
+			currentVersion = CC97AE522CD1F7F50051621D /* Model.xcdatamodel */;
+			name = Model.xcdatamodeld;
+			path = "/Users/tuananh/Library/Mobile Documents/com~apple~CloudDocs/SourceCode/GitHub/iOSSkeletonApp/iOSSkeletonApp/Resources/Model.xcdatamodeld";
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 6D534E9F2C89647D007563ED /* Project object */;
 }
