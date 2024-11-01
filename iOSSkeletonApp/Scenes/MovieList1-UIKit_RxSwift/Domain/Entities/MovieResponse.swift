@@ -38,4 +38,10 @@ extension MovieResponse {
                      totalPages: Int32(totalPages),
                      movies: NSSet(array: movieList), context: CoreDataStack.shared.context)
     }
+    
+    func toSDModel() -> MovieResponseSDModel {
+        return .init(page: page,
+                     totalPages: totalPages,
+                     movies: movies.map {$0.toSDModel()})
+    }
 }
