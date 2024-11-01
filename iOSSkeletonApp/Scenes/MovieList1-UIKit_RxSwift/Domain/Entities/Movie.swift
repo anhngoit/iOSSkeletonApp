@@ -35,6 +35,10 @@ struct Genre: Equatable, Identifiable {
     func toCDModel() -> GenreCDModel {
         return GenreCDModel(id: Int32(id), name: name, context: CoreDataStack.shared.context)
     }
+    
+    func toSDModel() -> GenreSDModel {
+        return GenreSDModel(id: id, name: name, movie: nil)
+    }
 }
 
 
@@ -75,6 +79,16 @@ extension Movie {
                      backdropPath: backdropPath,
                      overview: overview,
                      releaseDate: releaseDate, context: CoreDataStack.shared.context)
+    }
+    
+    func toSDModel() -> MovieSDModel {
+        return .init(id: Int(id) ?? 0,
+                     title: title,
+                     genres: genres.map{ $0.toSDModel() },
+                     posterPath: posterPath,
+                     backdropPath: backdropPath,
+                     overview: overview,
+                     releaseDate: releaseDate, movieResponse: nil)
     }
 }
 

@@ -11,14 +11,15 @@ import Moya
 class MovieListRepositoryImpl2: MovieListRepository2 {
 
     private let movieApiDataSource: MoyaProvider<MovieAPI>
-//    private let movieLocalDataSource: RealmDataSource<MovieResponseRModel>
-    private let movieLocalDataSource: CoreDataSource<MovieResponseCDModel>
+    private let movieLocalDataSource: RealmDataSource<MovieResponseRModel>
+//    private let movieLocalDataSource: CoreDataSource<MovieResponseCDModel>
+//    private let movieLocalDataSource: SwiftDataSource<MovieResponseSDModel>
     
     init(movieApiDataSource: MoyaProvider<MovieAPI>, movieLocalDataSource: RealmDataSource<MovieResponseRModel>) {
         self.movieApiDataSource = movieApiDataSource
-//        self.movieLocalDataSource = movieLocalDataSource
-        self.movieLocalDataSource = CoreDataSource<MovieResponseCDModel>()
-        
+        self.movieLocalDataSource = movieLocalDataSource
+//        self.movieLocalDataSource = CoreDataSource<MovieResponseCDModel>()
+//        self.movieLocalDataSource = SwiftDataSource<MovieResponseSDModel>()
     }
 
     func getRemotePopularMovies(page: Int) async throws -> MovieResponse {
@@ -31,15 +32,18 @@ class MovieListRepositoryImpl2: MovieListRepository2 {
 
     func getLocalPopularMovies(page: Int) async throws -> MovieResponse? {
         let predicate = NSPredicate(format: "page = %d", page)
-        let realmResult = try movieLocalDataSource.filter(predicate: predicate)
+//        let predicate = #Predicate<MovieResponseSDModel> { $0.page == page }
+//        let realmResult = try await movieLocalDataSource.filter(with: predicate)
+        let realmResult = try await movieLocalDataSource.filter(predicate: predicate)
         return realmResult.first?.toDomain()
     }
 
-    func savePopularMovies(movieResponse: MovieResponse) {
+    func savePopularMovies(movieResponse: MovieResponse) async {
         do {
-//            let movieResponseRModel = movieResponse.toReamModel()
-            let movieResponseRModel = movieResponse.toCDModel()
-            try movieLocalDataSource.createOrUpdate(item: movieResponseRModel)
+            let movieResponseRModel = movieResponse.toReamModel()
+//            let movieResponseRModel = movieResponse.toCDModel()
+//            let movieResponseRModel = movieResponse.toSDModel()
+            try await movieLocalDataSource.createOrUpdate(item: movieResponseRModel)
         } catch {
             print("Failed to save popular movies: \(error)")
         }
