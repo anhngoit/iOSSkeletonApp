@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>CFBundleDisplayName</key>
+    <string>$(APP_NAME)</string>
+    <key>CFBundleShortVersionString</key>
+    <string>$(APP_VERSION)</string>
+    <key>CFBundleVersion</key>
+    <string>$(BUILD_NUMBER)</string>
+    <key>CFBundleIdentifier</key>
+    <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+    <key>Environment</key>
+    <string>$(ENVIRONMENT)</string>
+    <key>AccessTokenAuthen</key>
+    <string>$(ACCESS_TOKEN_AUTHEN)</string>
+    <key>ApiEndpointUrl</key>
+    <string>$(API_ENDPOINT_URL)</string>
+    <key>PhotoEndpointUrl</key>
+    <string>$(PHOTO_ENDPOINT_URL)</string>
+</dict>
+</plist>

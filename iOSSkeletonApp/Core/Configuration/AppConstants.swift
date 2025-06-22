@@ -2,11 +2,11 @@
 //  AppConstants.swift
 //  iOSSkeletonApp
 //
-//  Created by Anh “Steven” Ngo on 27/8/24.
+//  Created by Anh “Steven” Ngo on 18/6/25.
 //
 
 import Foundation
 
 struct AppConstants {
-    static let a = ""
+    static let test = ""
 }

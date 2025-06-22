@@ -1,47 +1,40 @@
 //
-//  LocalDataService.swift
+//  LocalStorage.swift
 //  iOSSkeletonApp
 //
-//  Created by Anh “Steven” Ngo on 08/09/2024.
+//  Created by Anh “Steven” Ngo on 18/6/25.
 //
 
 import Foundation
+import Combine
+import SwiftData
 
 protocol LocalStorage {
-    associatedtype T
+    associatedtype Model
 
-    func createOrUpdate(item: T) async throws
-    func createOrUpdate(items: [T]) async throws
-    func read<K>(byId id: K) async throws -> T?
-    func readAll() async throws -> [T]
-    
-    // Optional filter methods with default implementations
-    func filter(predicate: NSPredicate) async throws -> [T]
-    func filter(with predicate: Predicate<T>) async throws -> [T]
-    
-    func delete(item: T) async throws
-    func delete(items: [T]) async throws
-    func deleteAll() async throws
-    func delete(filter predicate: NSPredicate) async throws
+    func createOrUpdate(item: Model) -> AnyPublisher<Void, Error>
+    func createOrUpdate(items: [Model]) -> AnyPublisher<Void, Error>
+    func read<K: Hashable>(byId id: K) -> AnyPublisher<Model?, Error>
+    func readAll() -> AnyPublisher<[Model], Error>
+    func filter(with predicate: NSPredicate) -> AnyPublisher<[Model], Error>
+    func delete(item: Model) -> AnyPublisher<Void, Error>
+    func delete(items: [Model]) -> AnyPublisher<Void, Error>
+    func deleteAll() -> AnyPublisher<Void, Error>
 }
 
-// Default implementations for optional methods
+//// Default implementations for optional methods
 extension LocalStorage {
-    func filter(predicate: NSPredicate) async throws -> [T] {
+    func filter(predicate: NSPredicate) -> AnyPublisher<[Model], Error> {
         // Default behavior or empty implementation
-        return []
+        Just([])
+            .setFailureType(to: Error.self)
+            .eraseToAnyPublisher()
     }
-
-    func filter(with predicate: Predicate<T>) async throws -> [T] {
+    
+    func filter(with predicate: Predicate<Model>) -> AnyPublisher<[Model], Error> {
         // Default behavior or empty implementation
-        return []
+        Just([])
+            .setFailureType(to: Error.self)
+            .eraseToAnyPublisher()
     }
-}
-
-
-enum DatabaseType {
-    case realm
-    case coreData
-    case swiftData
-//    case firestore
 }

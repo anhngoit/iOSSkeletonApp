@@ -2,7 +2,7 @@
 //  Environment.swift
 //  iOSSkeletonApp
 //
-//  Created by Anh “Steven” Ngo on 19/9/24.
+//  Created by Anh “Steven” Ngo on 18/6/25.
 //
 
 import Foundation
@@ -26,7 +26,7 @@ enum Environment: String {
 
     static var current: Environment {
         let environmentName = getConfigValue(for: .environment)
-        return Environment(rawValue: environmentName)!
+        return Environment(rawValue: environmentName) ?? .dev
     }
 
     static var appName: String {
@@ -54,6 +54,10 @@ enum Environment: String {
     }
 
     private static func getConfigValue(for key: ConfigKey) -> String {
-        return Bundle.main.infoDictionary?[key.rawValue] as! String
+        guard let value = Bundle.main.infoDictionary?[key.rawValue] as? String else {
+            AppLogger.application.error("Missing config for key: \(key.rawValue)")
+            return ""
+        }
+        return value
     }
 }

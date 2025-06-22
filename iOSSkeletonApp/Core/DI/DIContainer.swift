@@ -2,44 +2,88 @@
 //  DIContainer.swift
 //  iOSSkeletonApp
 //
-//  Created by Anh “Steven” Ngo on 6/9/24.
+//  Created by Anh “Steven” Ngo on 18/6/25.
 //
 
 import Foundation
 import Moya
+import Alamofire
+import Factory
 
-class DIContainer {
-    static let shared = DIContainer()
+extension Container {
+    
+    // MARK: - AppState
+    var appState: Factory<AppState> {
+        Factory(self) {
+            AppState()
+        }
+        .singleton
+    }
+    
+    // MARK: - Network
+    private var alamofireSession: Factory<Session> {
+        Factory(self) {
+            let configuration = URLSessionConfiguration.default
+            configuration.timeoutIntervalForRequest = 60
+            configuration.timeoutIntervalForResource = 120
+            configuration.waitsForConnectivity = true
+            configuration.httpMaximumConnectionsPerHost = 5
+            configuration.requestCachePolicy = .returnCacheDataElseLoad
+            configuration.urlCache = .shared
+            configuration.httpCookieAcceptPolicy = .always
+            configuration.httpCookieStorage = HTTPCookieStorage.shared
+            configuration.httpShouldSetCookies = true
 
-    var movieListViewModel: MovieListViewModel
-    var movieDetailViewModel: MovieDetailViewModel
+            if #available(iOS 15.0, *) {
+                configuration.allowsExpensiveNetworkAccess = true
+                configuration.allowsConstrainedNetworkAccess = true
+            }
 
-    var movieListUseCase: MovieListUseCase
-    var movieListUseCase2: MovieListUseCase2
-    var movieDetailUseCase: MovieDetailUseCase
+            let backgroundQueue = DispatchQueue(label: "com.app.network", qos: .background)
 
-    var movieListRepository: MovieListRepository
-    var movieListRepository2: MovieListRepository2
-    var movieDetailRepository: MovieDetailRepository
+            return Session(configuration: configuration, rootQueue: backgroundQueue)
+        }
+        .singleton
+    }
+    
+    private var moyaPlugins: Factory<[PluginType]> {
+        Factory(self) {
+            [CustomMoyaPlugin()]
+        }
+        .singleton
+    }
+    
 
-    var movieApiDataSource: MoyaProvider<MovieAPI>
-    var movieLocalDataSource: RealmDataSource<MovieResponseRModel>
-    var movieDetailLocalDataSource: RealmDataSource<MovieRModel>
+    // MARK: - Datasources
+    var movieApiDataSource: Factory<MoyaProvider<MovieAPI>> {
+        Factory(self) {
+            MoyaProvider<MovieAPI>(session: self.alamofireSession(), plugins: self.moyaPlugins())
+        }
+        .cached
+    }
 
-    init() {
-        movieApiDataSource = MoyaProvider<MovieAPI>()
-        movieLocalDataSource = RealmDataSource<MovieResponseRModel>()
-        movieDetailLocalDataSource = RealmDataSource<MovieRModel>()
+    var movieLocalDataSource: Factory<CDDataSource<MoviePageCDModel>> {
+        Factory(self) {
+            CDDataSource<MoviePageCDModel>()
+        }
+        .cached
+    }
+    
+    
+    // MARK: - Repositories
+    var movieListRepository: Factory<MovieListRepository> {
+            Factory(self) {
+                MovieListRepositoryImpl()
+            }
+            .cached
+        }
+    
 
-        movieListRepository = MovieListRepositoryImpl(movieApiDataSource: movieApiDataSource, movieLocalDataSource: movieLocalDataSource)
-        movieListRepository2 = MovieListRepositoryImpl2(movieApiDataSource: movieApiDataSource, movieLocalDataSource: movieLocalDataSource)
-        movieDetailRepository = MovieDetailRepositoryImpl(movieApiDataSource: movieApiDataSource, movieDetailLocalDataSource: movieDetailLocalDataSource)
-
-        movieListUseCase = MovieListUseCaseImpl(movieListRepository: movieListRepository)
-        movieListUseCase2 = MovieListUseCaseImpl2(movieListRepository: movieListRepository2)
-        movieDetailUseCase = MovieDetailUseCaseImpl(movieDetailRepository: movieDetailRepository)
-
-        movieListViewModel = MovieListViewModelImpl(movieListUseCase: movieListUseCase)
-        movieDetailViewModel = MovieDetailViewModel(movieDetailUseCase: movieDetailUseCase)
+    // MARK: - Use Cases
+    var movieListUseCase: Factory<GetMovieListUseCase> {
+        Factory(self) {
+            GetMovieListUseCaseImpl()
+        }
+        .cached
     }
 }

@@ -2,46 +2,34 @@
 //  MoyaProvider.swift
 //  iOSSkeletonApp
 //
-//  Created by Anh “Steven” Ngo on 18/06/2024.
+//  Created by Anh “Steven” Ngo on 18/6/25.
 //
 
 import Foundation
 import Moya
+import Combine
 
 extension MoyaProvider {
-    func request<T: Decodable>(target: Target, completion: @escaping (Result<T, Error>) -> ()) {
-        self.request(target) { result in
-            switch result {
-            case let .success(response):
-                do {
-                    let results = try JSONDecoder().decode(T.self, from: response.data)
-                    completion(.success(results))
-                } catch let error {
-                    completion(.failure(error))
-                }
-            case let .failure(error):
-                completion(.failure(error))
-            }
-        }
-    }
-}
-
-extension MoyaProvider {
-    func requestAsync<T: Decodable>(target: Target, decodingType: T.Type) async throws -> T {
-        return try await withCheckedThrowingContinuation { continuation in
-            self.request(target) { result in
+    /// Publishes the raw network response for the given target.
+    ///
+    /// - Parameters:
+    ///   - target: The API target (endpoint) to request.
+    ///   - callbackQueue: The queue to invoke the callback on (default: nil; uses provider's default).
+    /// - Returns: An `AnyPublisher` that emits the `Response` on success or a `MoyaError` on failure.
+    func requestPublisher(
+        _ target: Target,
+        callbackQueue: DispatchQueue? = nil
+    ) -> AnyPublisher<Response, MoyaError> {
+        return Future { promise in
+            self.request(target, callbackQueue: callbackQueue, progress: nil) { result in
                 switch result {
                 case .success(let response):
-                    do {
-                        let decodedResponse = try JSONDecoder().decode(T.self, from: response.data)
-                        continuation.resume(returning: decodedResponse)
-                    } catch {
-                        continuation.resume(throwing: error)
-                    }
+                    promise(.success(response))
                 case .failure(let error):
-                    continuation.resume(throwing: error)
+                    promise(.failure(error))
                 }
             }
         }
+        .eraseToAnyPublisher()
     }
 }

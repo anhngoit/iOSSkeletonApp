@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1540"
+   LastUpgradeVersion = "1610"
    version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -15,7 +15,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6D534EA62C89647D007563ED"
+               BlueprintIdentifier = "CC13CCBF2E01E7DE00CCBA5F"
                BuildableName = "iOSSkeletonApp.app"
                BlueprintName = "iOSSkeletonApp"
                ReferencedContainer = "container:iOSSkeletonApp.xcodeproj">
@@ -35,7 +35,7 @@
             parallelizable = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6D534EBC2C896480007563ED"
+               BlueprintIdentifier = "CC13CCD62E01E7E000CCBA5F"
                BuildableName = "iOSSkeletonAppTests.xctest"
                BlueprintName = "iOSSkeletonAppTests"
                ReferencedContainer = "container:iOSSkeletonApp.xcodeproj">
@@ -46,7 +46,7 @@
             parallelizable = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6D534EC62C896480007563ED"
+               BlueprintIdentifier = "CC13CCE02E01E7E000CCBA5F"
                BuildableName = "iOSSkeletonAppUITests.xctest"
                BlueprintName = "iOSSkeletonAppUITests"
                ReferencedContainer = "container:iOSSkeletonApp.xcodeproj">
@@ -68,7 +68,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6D534EA62C89647D007563ED"
+            BlueprintIdentifier = "CC13CCBF2E01E7DE00CCBA5F"
             BuildableName = "iOSSkeletonApp.app"
             BlueprintName = "iOSSkeletonApp"
             ReferencedContainer = "container:iOSSkeletonApp.xcodeproj">
@@ -85,7 +85,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6D534EA62C89647D007563ED"
+            BlueprintIdentifier = "CC13CCBF2E01E7DE00CCBA5F"
             BuildableName = "iOSSkeletonApp.app"
             BlueprintName = "iOSSkeletonApp"
             ReferencedContainer = "container:iOSSkeletonApp.xcodeproj">

@@ -1,77 +1,26 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "Access Token Authentication Missing" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "vi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Access Token Authentication Missing"
-          }
-        }
-      }
-    },
     "Error" : {
-      "localizations" : {
-        "vi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Error"
-          }
-        }
-      }
-    },
-    "Loading more movies..." : {
-      "localizations" : {
-        "vi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Loading more movies..."
-          }
-        }
-      }
+
     },
     "Loading..." : {
-      "localizations" : {
-        "vi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Loading..."
-          }
-        }
-      }
+
     },
     "Movies" : {
-      "localizations" : {
-        "vi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Movies"
-          }
-        }
-      }
+
+    },
+    "Movies 2" : {
+
+    },
+    "Network connection seems to be offline." : {
+
     },
     "OK" : {
-      "localizations" : {
-        "vi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Movies"
-          }
-        }
-      }
+
     },
-    "You haven't set up Access Token Authentication. Please go through README.md for more information." : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "vi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "You haven't set up Access Token Authentication. Please go through README.md for more information."
-          }
-        }
-      }
+    "Success" : {
+
     }
   },
   "version" : "1.0"

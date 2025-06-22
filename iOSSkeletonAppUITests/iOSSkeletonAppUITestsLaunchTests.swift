@@ -2,7 +2,7 @@
 //  iOSSkeletonAppUITestsLaunchTests.swift
 //  iOSSkeletonAppUITests
 //
-//  Created by anh.ngo on 5/9/24.
+//  Created by Anh “Steven” Ngo on 17/6/25.
 //
 
 import XCTest
@@ -17,6 +17,7 @@ final class iOSSkeletonAppUITestsLaunchTests: XCTestCase {
         continueAfterFailure = false
     }
 
+    @MainActor
     func testLaunch() throws {
         let app = XCUIApplication()
         app.launch()
