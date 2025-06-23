@@ -3,7 +3,6 @@
 # iOSSkeletonApp
 
 A **production-ready iOS skeleton application** featuring modern Clean Architecture + MVVM and powerful dependency injection using [Factory](https://github.com/hmlongco/Factory). Built as a real-world reference for scalable, testable, and maintainable app development. Includes local storage abstraction (CoreData, SwiftData), comprehensive networking (Moya + Alamofire), and a fully-featured demo “Movie List” module.
-
 <br>
 
 ## 🚀 Features
@@ -15,8 +14,8 @@ A **production-ready iOS skeleton application** featuring modern Clean Architect
   * **Domain:** UseCases, Entities, and Repository protocols—business logic isolated from frameworks.
   * **Data:** All implementation details for networking and persistence. Easily mockable.
   * **Dependency Injection:** Powered by Factory for flexible, testable dependency management.
-
-  > Build features with high separation of concerns, excellent testability, and scalable code structure.
+  <br>
+  >  Build features with high separation of concerns, excellent testability, and scalable code structure.
 
 * **Local Storage**
   CoreData and SwiftData under a unified protocol. Secure storage via Keychain and UserDefaults helpers.
@@ -70,7 +69,7 @@ iOSSkeletonApp/
 │           ├── Models/
 │
 ├── Resources/                   // Fonts, Colors, Assets, Localizable
-├── iOSSkeletonAppTests/         // Unit tests (organized by feature)
+├── iOSSkeletonAppTests/         // Unit tests 
 ├── iOSSkeletonAppUITests/       // UI Tests
 ```
 
@@ -224,7 +223,7 @@ Testing is a first-class citizen in iOSSkeletonApp, with a focus on speed, relia
 * Add local storage/data models as needed (use provided protocols/extensions).
 * Add new API endpoints as new cases in `MovieAPI` (or your feature’s API).
 
-* **Or Using My ready-to-use Clean Architecture Xcode File Template to create new feature:
+* **Or Using My ready-to-use Clean Architecture Xcode File Template to create new feature:**
 [CleanArchXcodeFileTemplate](https://github.com/anhngoit/CleanArchXcodeFileTemplate)
 
 
