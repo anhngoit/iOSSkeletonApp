@@ -71,16 +71,6 @@
 		CC13CDD12E03458700CCBA5F /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = CC13CDD02E03458700CCBA5F /* Localizable.xcstrings */; };
 		CC13CDD32E0345C800CCBA5F /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC13CDD22E0345C800CCBA5F /* Colors.xcassets */; };
 		CC13CDDC2E0346E200CCBA5F /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CC13CDDA2E0346E200CCBA5F /* Model.xcdatamodeld */; };
-		CC96484B2E0883C70068677D /* ChatUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC96483F2E0883C70068677D /* ChatUseCaseImpl.swift */; };
-		CC96484C2E0883C70068677D /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC96483B2E0883C70068677D /* Chat.swift */; };
-		CC96484D2E0883C70068677D /* ChatDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9648322E0883C70068677D /* ChatDTO.swift */; };
-		CC96484E2E0883C70068677D /* ChatAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC96482F2E0883C70068677D /* ChatAPI.swift */; };
-		CC96484F2E0883C70068677D /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9648452E0883C70068677D /* ChatView.swift */; };
-		CC9648502E0883C70068677D /* ChatResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9648352E0883C70068677D /* ChatResponse.swift */; };
-		CC9648512E0883C70068677D /* ChatRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC96483D2E0883C70068677D /* ChatRepository.swift */; };
-		CC9648522E0883C70068677D /* ChatRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9648382E0883C70068677D /* ChatRepositoryImpl.swift */; };
-		CC9648532E0883C70068677D /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9648472E0883C70068677D /* ChatViewModel.swift */; };
-		CC9648542E0883C70068677D /* ChatUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9648412E0883C70068677D /* ChatUseCase.swift */; };
 		CCE3794B2E05D67900C323AB /* MockGetMovieListUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE3794A2E05D67800C323AB /* MockGetMovieListUseCase.swift */; };
 		CCE3794D2E05D69000C323AB /* MovieListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE3794C2E05D68F00C323AB /* MovieListViewModelTests.swift */; };
 		CCE3794F2E05D6B800C323AB /* GetMovieListUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE3794E2E05D6B700C323AB /* GetMovieListUseCaseTests.swift */; };
@@ -218,16 +208,6 @@
 		CC13CDD02E03458700CCBA5F /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		CC13CDD22E0345C800CCBA5F /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		CC13CDDB2E0346E200CCBA5F /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
-		CC96482F2E0883C70068677D /* ChatAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatAPI.swift; sourceTree = "<group>"; };
-		CC9648322E0883C70068677D /* ChatDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatDTO.swift; sourceTree = "<group>"; };
-		CC9648352E0883C70068677D /* ChatResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatResponse.swift; sourceTree = "<group>"; };
-		CC9648382E0883C70068677D /* ChatRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRepositoryImpl.swift; sourceTree = "<group>"; };
-		CC96483B2E0883C70068677D /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
-		CC96483D2E0883C70068677D /* ChatRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRepository.swift; sourceTree = "<group>"; };
-		CC96483F2E0883C70068677D /* ChatUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatUseCaseImpl.swift; sourceTree = "<group>"; };
-		CC9648412E0883C70068677D /* ChatUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatUseCase.swift; sourceTree = "<group>"; };
-		CC9648452E0883C70068677D /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
-		CC9648472E0883C70068677D /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
 		CCE3794A2E05D67800C323AB /* MockGetMovieListUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGetMovieListUseCase.swift; sourceTree = "<group>"; };
 		CCE3794C2E05D68F00C323AB /* MovieListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListViewModelTests.swift; sourceTree = "<group>"; };
 		CCE3794E2E05D6B700C323AB /* GetMovieListUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMovieListUseCaseTests.swift; sourceTree = "<group>"; };
@@ -349,7 +329,6 @@
 				CC13CD672E03433900CCBA5F /* MainTabView.swift */,
 				CC13CD692E03435700CCBA5F /* Components */,
 				CC13CD6A2E03436400CCBA5F /* MovieList */,
-				CC96484A2E0883C70068677D /* Chat */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -671,159 +650,6 @@
 			path = Lottie;
 			sourceTree = "<group>";
 		};
-		CC9648302E0883C70068677D /* Datasources */ = {
-			isa = PBXGroup;
-			children = (
-				CC96482F2E0883C70068677D /* ChatAPI.swift */,
-			);
-			path = Datasources;
-			sourceTree = "<group>";
-		};
-		CC9648312E0883C70068677D /* CoreDataModels */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = CoreDataModels;
-			sourceTree = "<group>";
-		};
-		CC9648332E0883C70068677D /* DTOs */ = {
-			isa = PBXGroup;
-			children = (
-				CC9648322E0883C70068677D /* ChatDTO.swift */,
-			);
-			path = DTOs;
-			sourceTree = "<group>";
-		};
-		CC9648342E0883C70068677D /* RequestParameters */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = RequestParameters;
-			sourceTree = "<group>";
-		};
-		CC9648362E0883C70068677D /* Responses */ = {
-			isa = PBXGroup;
-			children = (
-				CC9648352E0883C70068677D /* ChatResponse.swift */,
-			);
-			path = Responses;
-			sourceTree = "<group>";
-		};
-		CC9648372E0883C70068677D /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				CC9648312E0883C70068677D /* CoreDataModels */,
-				CC9648332E0883C70068677D /* DTOs */,
-				CC9648342E0883C70068677D /* RequestParameters */,
-				CC9648362E0883C70068677D /* Responses */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		CC9648392E0883C70068677D /* Repositories */ = {
-			isa = PBXGroup;
-			children = (
-				CC9648382E0883C70068677D /* ChatRepositoryImpl.swift */,
-			);
-			path = Repositories;
-			sourceTree = "<group>";
-		};
-		CC96483A2E0883C70068677D /* Data */ = {
-			isa = PBXGroup;
-			children = (
-				CC9648392E0883C70068677D /* Repositories */,
-				CC9648302E0883C70068677D /* Datasources */,
-				CC9648372E0883C70068677D /* Models */,
-			);
-			path = Data;
-			sourceTree = "<group>";
-		};
-		CC96483C2E0883C70068677D /* Entities */ = {
-			isa = PBXGroup;
-			children = (
-				CC96483B2E0883C70068677D /* Chat.swift */,
-			);
-			path = Entities;
-			sourceTree = "<group>";
-		};
-		CC96483E2E0883C70068677D /* Repositories */ = {
-			isa = PBXGroup;
-			children = (
-				CC96483D2E0883C70068677D /* ChatRepository.swift */,
-			);
-			path = Repositories;
-			sourceTree = "<group>";
-		};
-		CC9648402E0883C70068677D /* Impl */ = {
-			isa = PBXGroup;
-			children = (
-				CC96483F2E0883C70068677D /* ChatUseCaseImpl.swift */,
-			);
-			path = Impl;
-			sourceTree = "<group>";
-		};
-		CC9648422E0883C70068677D /* UseCases */ = {
-			isa = PBXGroup;
-			children = (
-				CC9648402E0883C70068677D /* Impl */,
-				CC9648412E0883C70068677D /* ChatUseCase.swift */,
-			);
-			path = UseCases;
-			sourceTree = "<group>";
-		};
-		CC9648432E0883C70068677D /* Domain */ = {
-			isa = PBXGroup;
-			children = (
-				CC96483C2E0883C70068677D /* Entities */,
-				CC9648422E0883C70068677D /* UseCases */,
-				CC96483E2E0883C70068677D /* Repositories */,
-			);
-			path = Domain;
-			sourceTree = "<group>";
-		};
-		CC9648442E0883C70068677D /* Components */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Components;
-			sourceTree = "<group>";
-		};
-		CC9648462E0883C70068677D /* View */ = {
-			isa = PBXGroup;
-			children = (
-				CC9648442E0883C70068677D /* Components */,
-				CC9648452E0883C70068677D /* ChatView.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		CC9648482E0883C70068677D /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				CC9648472E0883C70068677D /* ChatViewModel.swift */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		CC9648492E0883C70068677D /* Presentation */ = {
-			isa = PBXGroup;
-			children = (
-				CC9648462E0883C70068677D /* View */,
-				CC9648482E0883C70068677D /* ViewModel */,
-			);
-			path = Presentation;
-			sourceTree = "<group>";
-		};
-		CC96484A2E0883C70068677D /* Chat */ = {
-			isa = PBXGroup;
-			children = (
-				CC9648492E0883C70068677D /* Presentation */,
-				CC9648432E0883C70068677D /* Domain */,
-				CC96483A2E0883C70068677D /* Data */,
-			);
-			path = Chat;
-			sourceTree = "<group>";
-		};
 		CCE379332E05D65500C323AB /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1096,16 +922,6 @@
 				CC13CD9A2E03437200CCBA5F /* Movie.swift in Sources */,
 				CC13CD9C2E03437200CCBA5F /* MovieCDModel.swift in Sources */,
 				CC13CDA42E03437200CCBA5F /* MoviePage.swift in Sources */,
-				CC96484B2E0883C70068677D /* ChatUseCaseImpl.swift in Sources */,
-				CC96484C2E0883C70068677D /* Chat.swift in Sources */,
-				CC96484D2E0883C70068677D /* ChatDTO.swift in Sources */,
-				CC96484E2E0883C70068677D /* ChatAPI.swift in Sources */,
-				CC96484F2E0883C70068677D /* ChatView.swift in Sources */,
-				CC9648502E0883C70068677D /* ChatResponse.swift in Sources */,
-				CC9648512E0883C70068677D /* ChatRepository.swift in Sources */,
-				CC9648522E0883C70068677D /* ChatRepositoryImpl.swift in Sources */,
-				CC9648532E0883C70068677D /* ChatViewModel.swift in Sources */,
-				CC9648542E0883C70068677D /* ChatUseCase.swift in Sources */,
 				CC13CDBE2E0344F600CCBA5F /* GenreSDModel.swift in Sources */,
 				CC13CD382E033E1600CCBA5F /* NetworkMonitor.swift in Sources */,
 				CC13CD432E033EB900CCBA5F /* CDDataSource.swift in Sources */,
