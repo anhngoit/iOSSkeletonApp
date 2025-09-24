@@ -1,0 +1,70 @@
+name: QC Build
+
+on:
+  pull_request:
+    branches:
+      - 'develop'
+
+jobs:
+  build:
+    runs-on: macos-latest   # required for iOS builds
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # (Optional) Pin an exact Xcode
+      - name: Select Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: '16.4'
+
+      # Cache Swift Package Manager to speed up builds
+      - name: Cache SPM
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/Library/Developer/Xcode/DerivedData
+            ~/Library/Caches/org.swift.swiftpm
+          key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
+          restore-keys: ${{ runner.os }}-spm-
+
+      # 🔨 Build + sign IPA with yukiarrr/ios-build-action
+      - name: Build IPA
+        id: build
+        uses: yukiarrr/ios-build-action@v1.12.0
+        with:
+          # --- Signing material ---
+          p12-base64: ${{ secrets.P12_BASE64 }}              # base64 of .p12 (key+cert)
+          certificate-password: ${{ secrets.P12_PASSWORD }}  # password used when exporting .p12
+          mobileprovision-base64: ${{ secrets.MOBILEPROVISION_BASE64 }} # base64 of .mobileprovision
+
+          # --- Project settings ---
+          project-path: RTADrive.xcodeproj                   # or use workspace-path: Your.xcworkspace
+          workspace-path: ''                                 # set if using CocoaPods/SPM workspace
+          scheme: RTADrive-QC                                # your scheme
+          configuration: QC
+          export-method: app-store                           # app-store / ad-hoc / development / enterprise
+
+          # --- Code signing identity & team ---
+          code-signing-identity: ${{ secrets.CODE_SIGNING_IDENTITY }} # e.g. "Apple Distribution: Your Company (TEAMID)"
+          team-id: ${{ secrets.TEAM_ID }}                              # e.g. ABCDE12345
+
+          # --- Output ---
+          output-path: output.ipa
+
+          # (Optional) auto-increment build number based on latest TestFlight build
+          increment-build-number: testflight
+          bundle-identifier: com.poodlelabz.rdt.qc
+          app-store-connect-api-key-id: ${{ secrets.APPSTORE_API_KEY_ID }}
+          app-store-connect-api-key-issuer-id: ${{ secrets.APPSTORE_ISSUER_ID }}
+          app-store-connect-api-key-base64: ${{ secrets.APPSTORE_API_PRIVATE_KEY_BASE64 }}
+
+      # 🚀 Upload built IPA to TestFlight
+      - name: Upload to TestFlight
+        uses: Apple-Actions/upload-testflight-build@v1
+        with:
+          app-path: output.ipa
+          issuer-id: ${{ secrets.APPSTORE_ISSUER_ID }}
+          api-key-id: ${{ secrets.APPSTORE_API_KEY_ID }}
+          api-private-key: ${{ secrets.APPSTORE_API_PRIVATE_KEY }}   # must be the RAW .p8 text (multi-line, begins with -----BEGIN PRIVATE KEY-----).
+
