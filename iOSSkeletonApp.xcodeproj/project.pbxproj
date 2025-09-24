@@ -143,6 +143,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		52EF17C12E83CD34008CAA83 /* ci_post_clone.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = ci_post_clone.sh; sourceTree = "<group>"; };
 		CC13CCC02E01E7DE00CCBA5F /* iOSSkeletonApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSSkeletonApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC13CCD72E01E7E000CCBA5F /* iOSSkeletonAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iOSSkeletonAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC13CCE12E01E7E000CCBA5F /* iOSSkeletonAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iOSSkeletonAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -248,9 +249,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		52EF17C22E83CD34008CAA83 /* ci_scripts */ = {
+			isa = PBXGroup;
+			children = (
+				52EF17C12E83CD34008CAA83 /* ci_post_clone.sh */,
+			);
+			path = ci_scripts;
+			sourceTree = "<group>";
+		};
 		CC13CCB72E01E7DE00CCBA5F = {
 			isa = PBXGroup;
 			children = (
+				52EF17C22E83CD34008CAA83 /* ci_scripts */,
 				CC13CD0C2E03352200CCBA5F /* iOSSkeletonApp */,
 				CC13CD102E03355B00CCBA5F /* iOSSkeletonAppTests */,
 				CC13CD112E03357100CCBA5F /* iOSSkeletonAppUITests */,
