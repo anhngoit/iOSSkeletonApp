@@ -54,6 +54,17 @@ jobs:
 
       # No secrets needed: every test injects a mock through Factory, so
       # nothing here touches the network or needs an API token.
+      #
+      # -skipPackagePluginValidation: SwiftLintBuildToolPlugin is attached to
+      # the app and unit test targets. Xcode requires a build tool plugin to be
+      # trusted before first use, which is a GUI prompt — on a runner that
+      # surfaces as "Plugin ... must be enabled before it can be used" and
+      # fails the build. This is the same problem ci_scripts/ci_post_clone.sh
+      # works around for Xcode Cloud, solved per-invocation rather than by
+      # writing global Xcode defaults.
+      #
+      # Linting still happens in the `lint` job above, which runs the swiftlint
+      # binary directly and does not depend on the plugin at all.
       - name: Run unit tests
         run: |
           set -o pipefail
@@ -63,6 +74,7 @@ jobs:
             -destination "id=${{ steps.sim.outputs.udid }}" \
             -only-testing:iOSSkeletonAppTests \
             -resultBundlePath TestResults.xcresult \
+            -skipPackagePluginValidation \
             CODE_SIGNING_ALLOWED=NO \
             | xcbeautify
 
