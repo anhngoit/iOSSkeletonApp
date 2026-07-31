@@ -10,7 +10,7 @@ import Moya
 import Combine
 @testable import iOSSkeletonApp
 
-final class MockMovieLocalDataSource: CDDataSource<MoviePageCDModel>  {
+final class MockMovieLocalDataSource: CDDataSource<MoviePageCDModel> {
     typealias Model = MoviePageCDModel
 
     var storedModels: [MoviePageCDModel] = []
@@ -27,12 +27,22 @@ final class MockMovieLocalDataSource: CDDataSource<MoviePageCDModel>  {
         return Just(()).setFailureType(to: Error.self).eraseToAnyPublisher()
     }
     func read(byId id: Any) -> AnyPublisher<MoviePageCDModel?, Error> { fatalError("Not needed") }
-    override func readAll() -> AnyPublisher<[MoviePageCDModel], Error> { Just(storedModels).setFailureType(to: Error.self).eraseToAnyPublisher() }
+    override func readAll() -> AnyPublisher<[MoviePageCDModel], Error> {
+        Just(storedModels).setFailureType(to: Error.self).eraseToAnyPublisher()
+    }
     override func filter(with predicate: NSPredicate) -> AnyPublisher<[MoviePageCDModel], Error> {
         if shouldFail { return Fail(error: NSError(domain: "fail", code: 2)).eraseToAnyPublisher() }
         return Just(filterResult).setFailureType(to: Error.self).eraseToAnyPublisher()
     }
-    override func delete(item: MoviePageCDModel) -> AnyPublisher<Void, Error> { Just(()).setFailureType(to: Error.self).eraseToAnyPublisher() }
-    override func delete(items: [MoviePageCDModel]) -> AnyPublisher<Void, Error> { Just(()).setFailureType(to: Error.self).eraseToAnyPublisher() }
-    override func deleteAll() -> AnyPublisher<Void, Error> { Just(()).setFailureType(to: Error.self).eraseToAnyPublisher() }
+    override func delete(item: MoviePageCDModel) -> AnyPublisher<Void, Error> { Just(()).setFailureType(to: Error.self)
+            .eraseToAnyPublisher()
+    }
+    override func delete(items: [MoviePageCDModel]) -> AnyPublisher<Void, Error> {
+        Just(()).setFailureType(to: Error.self)
+            .eraseToAnyPublisher()
+    }
+    override func deleteAll() -> AnyPublisher<Void, Error> {
+        Just(()).setFailureType(to: Error.self)
+            .eraseToAnyPublisher()
+    }
 }

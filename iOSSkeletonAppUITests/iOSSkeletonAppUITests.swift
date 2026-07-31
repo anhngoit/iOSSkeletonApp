@@ -1,13 +1,13 @@
 //
-//  iOSSkeletonAppUITests.swift
-//  iOSSkeletonAppUITests
+//  IOSSkeletonAppUITests.swift
+//  IOSSkeletonAppUITests
 //
 //  Created by Anh “Steven” Ngo on 17/6/25.
 //
 
 import XCTest
 
-final class iOSSkeletonAppUITests: XCTestCase {
+final class IOSSkeletonAppUITests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.

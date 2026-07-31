@@ -10,8 +10,7 @@
 		CC13CD012E01E82500CCBA5F /* AppEntryPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC13CCFC2E01E82500CCBA5F /* AppEntryPoint.swift */; };
 		CC13CD042E01E82500CCBA5F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC13CCF72E01E82500CCBA5F /* Assets.xcassets */; };
 		CC13CD0A2E01E82500CCBA5F /* iOSSkeletonAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC13CD082E01E82500CCBA5F /* iOSSkeletonAppUITests.swift */; };
-		CC13CD0B2E01E82500CCBA5F /* iOSSkeletonAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC13CD092E01E82500CCBA5F /* iOSSkeletonAppUITestsLaunchTests.swift */; };
-		CC13CD172E03380700CCBA5F /* .swiftlint.yml in Sources */ = {isa = PBXBuildFile; fileRef = CC13CD162E0337FF00CCBA5F /* .swiftlint.yml */; };
+		CC13CD0B2E01E82500CCBA5F /* iOSSkeletonAppLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC13CD092E01E82500CCBA5F /* iOSSkeletonAppLaunchTests.swift */; };
 		CC13CD1A2E03388000CCBA5F /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC13CD192E03388000CCBA5F /* AppConstants.swift */; };
 		CC13CD1C2E03389300CCBA5F /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC13CD1B2E03389300CCBA5F /* Environment.swift */; };
 		CC13CD272E0339A000CCBA5F /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC13CD262E0339A000CCBA5F /* AppState.swift */; };
@@ -104,7 +103,7 @@
 		CC13CCF92E01E82500CCBA5F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CC13CCFC2E01E82500CCBA5F /* AppEntryPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEntryPoint.swift; sourceTree = "<group>"; };
 		CC13CD082E01E82500CCBA5F /* iOSSkeletonAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSSkeletonAppUITests.swift; sourceTree = "<group>"; };
-		CC13CD092E01E82500CCBA5F /* iOSSkeletonAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSSkeletonAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		CC13CD092E01E82500CCBA5F /* iOSSkeletonAppLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSSkeletonAppLaunchTests.swift; sourceTree = "<group>"; };
 		CC13CD162E0337FF00CCBA5F /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		CC13CD192E03388000CCBA5F /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
 		CC13CD1B2E03389300CCBA5F /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
@@ -261,7 +260,7 @@
 			isa = PBXGroup;
 			children = (
 				CC13CD082E01E82500CCBA5F /* iOSSkeletonAppUITests.swift */,
-				CC13CD092E01E82500CCBA5F /* iOSSkeletonAppUITestsLaunchTests.swift */,
+				CC13CD092E01E82500CCBA5F /* iOSSkeletonAppLaunchTests.swift */,
 			);
 			path = iOSSkeletonAppUITests;
 			sourceTree = "<group>";
@@ -872,7 +871,6 @@
 			files = (
 				CC13CDC02E03450C00CCBA5F /* MovieSDModel.swift in Sources */,
 				CC13CD1A2E03388000CCBA5F /* AppConstants.swift in Sources */,
-				CC13CD172E03380700CCBA5F /* .swiftlint.yml in Sources */,
 				CC13CDC42E03453A00CCBA5F /* GenreCDModel.swift in Sources */,
 				CC13CDAA2E0343BB00CCBA5F /* MovieItem.swift in Sources */,
 				CC13CD5C2E03402900CCBA5F /* AppLogger.swift in Sources */,
@@ -939,7 +937,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CC13CD0A2E01E82500CCBA5F /* iOSSkeletonAppUITests.swift in Sources */,
-				CC13CD0B2E01E82500CCBA5F /* iOSSkeletonAppUITestsLaunchTests.swift in Sources */,
+				CC13CD0B2E01E82500CCBA5F /* iOSSkeletonAppLaunchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -80,7 +80,8 @@ class MovieListRepositorySpec: QuickSpec {
             context("getLocalPopularMovies") {
                 it("returns mapped movies from local storage") {
                     // You need a stub for MoviePageCDModel and its toDomain() method
-                    let localModel = MoviePageCDModel(page: 1, totalPages: 2, movies: NSSet(), context: CoreDataStack.shared.context)
+                    let localModel = MoviePageCDModel(page: 1, totalPages: 2, movies: NSSet(),
+                                                      context: CoreDataStack.shared.context)
                     mockLocal.filterResult = [localModel]
 
                     waitUntil(timeout: .seconds(2)) { done in

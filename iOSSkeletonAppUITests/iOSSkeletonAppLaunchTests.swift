@@ -1,15 +1,15 @@
 //
-//  iOSSkeletonAppUITestsLaunchTests.swift
-//  iOSSkeletonAppUITests
+//  IOSSkeletonAppLaunchTests.swift
+//  IOSSkeletonAppUITests
 //
 //  Created by Anh “Steven” Ngo on 17/6/25.
 //
 
 import XCTest
 
-final class iOSSkeletonAppUITestsLaunchTests: XCTestCase {
+final class IOSSkeletonAppLaunchTests: XCTestCase {
 
-    override class var runsForEachTargetApplicationUIConfiguration: Bool {
+    override static var runsForEachTargetApplicationUIConfiguration: Bool {
         true
     }
 
