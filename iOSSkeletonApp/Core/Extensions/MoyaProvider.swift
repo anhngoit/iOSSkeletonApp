@@ -9,6 +9,11 @@ import Foundation
 import Moya
 import Combine
 
+/// Holds the in-flight Moya token so the Combine cancel handler can reach it.
+private final class RequestTokenBox {
+    var token: Moya.Cancellable?
+}
+
 extension MoyaProvider {
     /// Publishes the raw network response for the given target.
     ///
@@ -20,15 +25,19 @@ extension MoyaProvider {
         _ target: Target,
         callbackQueue: DispatchQueue? = nil
     ) -> AnyPublisher<Response, MoyaError> {
-        return Future { promise in
-            self.request(target, callbackQueue: callbackQueue, progress: nil) { result in
-                switch result {
-                case .success(let response):
-                    promise(.success(response))
-                case .failure(let error):
-                    promise(.failure(error))
+        Deferred {
+            let box = RequestTokenBox()
+            return Future<Response, MoyaError> { promise in
+                box.token = self.request(target, callbackQueue: callbackQueue, progress: nil) { result in
+                    switch result {
+                    case .success(let response):
+                        promise(.success(response))
+                    case .failure(let error):
+                        promise(.failure(error))
+                    }
                 }
             }
+            .handleEvents(receiveCancel: { box.token?.cancel() })
         }
         .eraseToAnyPublisher()
     }

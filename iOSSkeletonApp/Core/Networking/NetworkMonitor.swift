@@ -9,7 +9,7 @@ import Foundation
 import Network
 import OSLog
 
-class NetworkMonitor: ObservableObject {
+final class NetworkMonitor: ObservableObject {
     private let networkMonitor = NWPathMonitor()
     private let workerQueue = DispatchQueue(label: "NetworkMonitor")
     @Published var isNotConnected = false

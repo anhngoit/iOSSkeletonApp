@@ -2,7 +2,7 @@
 
 # iOSSkeletonApp
 
-A **production-ready iOS skeleton application** featuring modern Clean Architecture + MVVM and powerful dependency injection using [Factory](https://github.com/hmlongco/Factory). Built as a real-world reference for scalable, testable, and maintainable app development. Includes local storage abstraction (CoreData, SwiftData), comprehensive networking (Moya + Alamofire), and a fully-featured demo “Movie List” module.
+A **starting point for new iOS apps**: modern Clean Architecture + MVVM with dependency injection via [Factory](https://github.com/hmlongco/Factory). Built as a real-world reference for scalable, testable, and maintainable app development. Includes a local storage abstraction (Core Data, with SwiftData models scaffolded), networking (Moya + Alamofire), and a demo “Movie List” module wired end to end.
 <br>
 
 ## 🚀 Features
@@ -18,7 +18,7 @@ A **production-ready iOS skeleton application** featuring modern Clean Architect
   >  Build features with high separation of concerns, excellent testability, and scalable code structure.
 
 * **Local Storage**
-  CoreData and SwiftData under a unified protocol. Secure storage via Keychain and UserDefaults helpers.
+  A `LocalStorage` protocol with a Core Data implementation. SwiftData models and a `SDDataSource` are scaffolded but not yet wired into the DI container. Keychain and `UserDefaults` helpers included.
 
 * **Networking**
   Moya + Alamofire with plugin-based request/response logging.
@@ -42,9 +42,10 @@ A **production-ready iOS skeleton application** featuring modern Clean Architect
 ```
 iOSSkeletonApp/
 │
-├── Application/                  // App entry, AppDelegate, SceneDelegate
+├── Application/                  // App entry point
 ├── Core/                        // Foundation for DI, Networking, Storage, etc.
 │   ├── Configuration/
+│   │   ├── Secrets/             // Git-ignored per-env tokens + tracked template
 │   ├── DI/
 │   ├── Networking/
 │   ├── LocalStorage/
@@ -69,7 +70,14 @@ iOSSkeletonApp/
 │           ├── Models/
 │
 ├── Resources/                   // Fonts, Colors, Assets, Localizable
-├── iOSSkeletonAppTests/         // Unit tests 
+│
+├── Tools/Sourcery/              // Mock generation: config + stencil
+├── iOSSkeletonAppTests/         // Unit tests
+│   ├── Features/                // Specs, mirroring the app's feature tree
+│   ├── Mocks/
+│   │   ├── DataSource/          // Hand-written doubles for concrete classes
+│   │   ├── Generated/           // Sourcery output — do not edit
+│   ├── Utils/
 ├── iOSSkeletonAppUITests/       // UI Tests
 ```
 
@@ -81,7 +89,7 @@ iOSSkeletonApp/
 * **Combine** – modern reactive programming
 * **Moya & Alamofire** – HTTP Networking, plugin logging
 * **Factory** – dependency injection and test mocking
-* **CoreData & SwiftData** – unified storage abstraction
+* **Core Data** – persistence behind a `LocalStorage` protocol (SwiftData models scaffolded)
 * **Kingfisher** – async image loading
 * **Quick & Nimble** – expressive BDD tests
 * **SwiftLint** – code style enforcement
@@ -97,7 +105,7 @@ The codebase is organized with a strict Clean Architecture approach, seamlessly 
 * **Domain Layer:** UseCases encapsulate business rules, Entities model your business objects, and Repositories define contracts. No dependency on frameworks, so it's pure and testable.
 * **Data Layer:** Implements repositories, networking (Moya/Alamofire), and persistence (CoreData/SwiftData) via protocols. Data mapping is explicit and safe.
 * **Dependency Injection:** Managed by Factory, which enables environment-specific injection, mock/stub swapping, and test preview setups without boilerplate.
-* **Unified Local Storage:** Both CoreData and SwiftData are supported, so you can swap storage engines as needed, with one protocol.
+* **Local Storage behind a protocol:** `LocalStorage` defines the contract and `CDDataSource` implements it over Core Data, so a different engine can be dropped in without touching the layers above. SwiftData models are scaffolded for that path but not yet registered in the container.
 
 This structure delivers:
 
@@ -123,14 +131,57 @@ Testing is a first-class citizen in iOSSkeletonApp, with a focus on speed, relia
   * Repository tests that ensure data flows correctly from mocked APIs or local stores.
   * DataSource tests for CRUD, edge cases, and data mapping.
 * **Behavior-driven development (BDD)**: With Quick & Nimble, you write expressive, readable tests that act as living documentation.
-* **Coverage**: Achieving 80%+ is realistic by following the included examples.
-* **Continuous Integration Friendly**: Tests are fast, isolated, and deterministic. You can integrate into any CI pipeline for real regression safety.
+* **Continuous Integration**: `.github/workflows/main.yml` runs SwiftLint and the unit-test suite on every push and PR to `main`. No API token is needed — every test injects a mock through Factory.
 
 ### UI Tests
 
-* Automated XCUITest flows under `iOSSkeletonAppUITests`.
-* Tests include launching the app, verifying movie list UI loads, offline alert display, and more.
-* Can easily expand for new features and regressions.
+* XCUITest target scaffolded under `iOSSkeletonAppUITests` (launch test only so far — the CI workflow runs unit tests only).
+
+---
+
+## 🧬 Generated mocks
+
+Protocol test doubles are generated by [Sourcery](https://github.com/krzysztofzablocki/Sourcery) instead of hand-written, so they never drift from the protocol.
+
+**Setup** (once):
+
+```bash
+brew install sourcery
+```
+
+**Usage**: annotate any protocol, then regenerate by hand:
+
+```swift
+// sourcery: AutoMockable
+protocol MovieListRepository {
+    func getRemotePopularMovies() -> AnyPublisher<MoviePage, any Error>
+}
+```
+
+```bash
+sourcery --config Tools/Sourcery/Sourcery.yml
+```
+
+> Deliberately **not** wired to a build phase. Generation has to read the whole source tree and write outside the build directory, which requires `ENABLE_USER_SCRIPT_SANDBOXING = NO`; this project keeps script sandboxing on. Re-run the command above after changing an annotated protocol, and commit the result.
+
+You get `MovieListRepositoryMock` (a trailing `Protocol` in the name is stripped) with per-method call counts, recorded arguments, stubbable return values, and a closure hook:
+
+```swift
+let repository = MovieListRepositoryMock()
+repository.getRemotePopularMoviesReturnValue = Just(page)
+    .setFailureType(to: Error.self)
+    .eraseToAnyPublisher()
+
+Container.shared.movieListRepository.register { repository }
+
+// …exercise the code under test, then:
+expect(repository.getRemotePopularMoviesCallsCount).to(equal(1))
+expect(repository.savePopularMoviesMovieResponseReceivedMovieResponse).to(equal(page))
+```
+
+Config lives in [Tools/Sourcery](Tools/Sourcery); output is committed at `iOSSkeletonAppTests/Mocks/Generated/GeneratedMocks.swift`, so a fresh clone builds without Sourcery installed. Mocks are generated into the **test** target, so no mock code is compiled into a shipping build — see the comments in `Sourcery.yml` for how to move them into the app target if you want SwiftUI previews to use them.
+
+> Generic protocols (`LocalStorage`, `DomainConvertible`) can't be auto-mocked — Sourcery's AutoMockable doesn't handle `associatedtype`. Those still need hand-written doubles like `MockMovieLocalDataSource`.
 
 
 ---
@@ -156,12 +207,23 @@ Testing is a first-class citizen in iOSSkeletonApp, with a focus on speed, relia
 
    <img src="https://github.com/anhngoit/iOSSkeletonApp/blob/main/iOSSkeletonApp/Resources/Assets.xcassets/access_token_authen.imageset/access_token_authen.png" width="50%">
 
-   * The application has been set up with 4 schemas for 4 environments with 4 config files:
+   * The application has been set up with 4 schemes for 4 environments with 4 config files:
 
    <img src="https://github.com/anhngoit/iOSSkeletonApp/blob/main/iOSSkeletonApp/Resources/Assets.xcassets/schema.imageset/Screenshot%202024-09-20%20at%2016.59.14.png" width="65%">
 
-   * Select a schema and go to the corresponding config file.
-   * Add your access token authentication to the field `ACCESS_TOKEN_AUTHEN`.
+   * Tokens go in **git-ignored** files under `iOSSkeletonApp/Core/Configuration/Secrets/`, never in the tracked `Dev/QC/UAT/Production.xcconfig`. Create one per environment you build:
+
+     ```bash
+     cd iOSSkeletonApp/Core/Configuration/Secrets
+     for env in Dev QC UAT Production; do
+       cp Secrets.xcconfig.template "Secrets.$env.xcconfig"
+     done
+     ```
+
+   * Fill in `ACCESS_TOKEN_AUTHEN` in each copy. Each environment gets its own token, so revoking one doesn't take down the others.
+   * The matching `*.xcconfig` pulls the file in with `#include?`. A missing file is not a build error — the app just logs a clear message at launch and API calls return 401.
+
+   > `.gitignore` covers `Secrets.*.xcconfig`, and the xcconfig files are deliberately *not* in Copy Bundle Resources, so tokens don't end up readable inside the shipped `.ipa`.
 
 4. **Run the App**
 
@@ -181,9 +243,9 @@ Testing is a first-class citizen in iOSSkeletonApp, with a focus on speed, relia
 ## 🎬 Demo Feature: Movie List
 
 * Loads movies from API using `MovieAPI` (The Movie DB style endpoint, easily swappable).
-* Caches to local (CoreData or SwiftData, configurable).
-* Displays in a SwiftUI grid.
-* Includes offline detection, loading, and error states.
+* Caches page 1 to Core Data.
+* Emits the cached page first, then the fresh one, so the list renders before the network answers.
+* Displays in a SwiftUI grid, with loading, empty, and error states plus an offline alert.
 
 ---
 
@@ -204,13 +266,12 @@ Testing is a first-class citizen in iOSSkeletonApp, with a focus on speed, relia
 
 **iOSSkeletonApp isn’t just a starting template—it's a launchpad for serious iOS app development.**
 
-* **Real-world, production-proven architecture:** Every layer, module, and file is organized for how real apps are built and maintained.
-* **Lightning-fast onboarding:** New developers can jump right in. Structure is familiar, modular, and self-documenting.
-* **No more glue code or spaghetti:** Protocol-oriented, DI-powered, and modular—makes refactoring, scaling, and testing effortless.
-* **Rapid prototyping and smooth scaling:** Build MVPs in days, then scale to production with confidence (just swap mocks for real APIs and persistence).
-* **Testing isn’t an afterthought:** Every component is built for testability—CI, regression safety, and fearless refactoring come standard.
-* **Pluggable everything:** Switch APIs, local storage, themes, or even entire features with minimal code changes.
-* **Developer happiness:** Enjoy expressive SwiftUI, readable tests, code linting, and no technical debt from day one.
+* **A structure that scales:** Every layer, module, and file is organized for how real apps are built and maintained.
+* **Fast onboarding:** New developers can jump right in. Structure is familiar, modular, and self-documenting.
+* **Protocol-oriented and DI-powered:** makes refactoring, scaling, and testing straightforward.
+* **Testing isn’t an afterthought:** Every component is built for testability, and CI runs lint + tests on every PR.
+* **Pluggable:** Switch APIs, local storage, themes, or entire features with minimal code changes.
+* **The fiddly bits are already right:** per-environment secrets that can't be committed, cancellable network publishers, redacted auth headers in logs, generated mocks that can't drift from their protocols.
 
 **Make your next iOS project robust, future-proof, and fun—start with iOSSkeletonApp.**
 
@@ -220,6 +281,7 @@ Testing is a first-class citizen in iOSSkeletonApp, with a focus on speed, relia
 
 * Add features by duplicating the `Features/YourFeatureName` structure.
 * Register new dependencies in `DIContainer`.
+* Get a test double for free: annotate the protocol with `// sourcery: AutoMockable` and re-run Sourcery. See [Generated mocks](#-generated-mocks) below.
 * Add local storage/data models as needed (use provided protocols/extensions).
 * Add new API endpoints as new cases in `MovieAPI` (or your feature’s API).
 
@@ -241,7 +303,3 @@ Feel free to open issues or PRs for improvements.
 ---
 
 *Author: NGO QUANG TUAN ANH (Steven) — [LinkedIn](https://www.linkedin.com/in/anhngoit/)*
-
----
-
-Let me know if you want this further customized, or want advanced example code snippets in the README!

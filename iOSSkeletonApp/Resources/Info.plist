@@ -18,5 +18,15 @@
     <string>$(API_ENDPOINT_URL)</string>
     <key>PhotoEndpointUrl</key>
     <string>$(PHOTO_ENDPOINT_URL)</string>
+    <!-- Without this, the bundled .otf files are never registered with the
+         system, Font.custom silently falls back to San Francisco, and every
+         AppFont / .themeTitle / .themeBody in the app is a no-op. -->
+    <key>UIAppFonts</key>
+    <array>
+        <string>RecoletaAlt-Regular.otf</string>
+        <string>RecoletaAlt-Medium.otf</string>
+        <string>RecoletaAlt-SemiBold.otf</string>
+        <string>RecoletaAlt-Bold.otf</string>
+    </array>
 </dict>
 </plist>

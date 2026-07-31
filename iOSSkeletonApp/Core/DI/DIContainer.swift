@@ -24,10 +24,10 @@ extension Container {
     private var alamofireSession: Factory<Session> {
         Factory(self) {
             let configuration = URLSessionConfiguration.default
-            configuration.timeoutIntervalForRequest = 60
-            configuration.timeoutIntervalForResource = 120
+            configuration.timeoutIntervalForRequest = AppConstants.Network.requestTimeout
+            configuration.timeoutIntervalForResource = AppConstants.Network.resourceTimeout
             configuration.waitsForConnectivity = true
-            configuration.httpMaximumConnectionsPerHost = 5
+            configuration.httpMaximumConnectionsPerHost = AppConstants.Network.maxConnectionsPerHost
             configuration.requestCachePolicy = .returnCacheDataElseLoad
             configuration.urlCache = .shared
             configuration.httpCookieAcceptPolicy = .always

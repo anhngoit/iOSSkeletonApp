@@ -9,10 +9,10 @@ import Security
 import Foundation
 import os
 
-class KeychainManager {
-    
+final class KeychainManager {
+
     static let shared = KeychainManager()
-    
+
     private init() {}
     
     // MARK: - Save Data to Keychain
@@ -49,20 +49,26 @@ class KeychainManager {
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrAccount as String: key,
-            kSecReturnData as String: kCFBooleanTrue!,
+            kSecReturnData as String: true,
             kSecMatchLimit as String: kSecMatchLimitOne
         ]
-        
+
         var result: AnyObject?
         let status = SecItemCopyMatching(query as CFDictionary, &result)
-        
+
         if status == errSecSuccess, let data = result as? Data, let value = String(data: data, encoding: .utf8) {
             AppLogger.localStorage.info("Successfully retrieved value for key \(key, privacy: .public)")
             return value
+        }
+
+        // "Not found" is a normal outcome (first launch, after a logout), not
+        // an error worth flagging in the log.
+        if status == errSecItemNotFound {
+            AppLogger.localStorage.debug("No keychain item for key \(key, privacy: .public)")
         } else {
             AppLogger.localStorage.error("Failed to retrieve value for key \(key, privacy: .public). Status: \(status)")
-            return nil
         }
+        return nil
     }
     
     // MARK: - Delete Data from Keychain
@@ -76,6 +82,10 @@ class KeychainManager {
         let status = SecItemDelete(query as CFDictionary)
         if status == errSecSuccess {
             AppLogger.localStorage.info("Successfully deleted value for key \(key, privacy: .public)")
+        } else if status == errSecItemNotFound {
+            // Deleting something that isn't there is a no-op, not a failure —
+            // `save` calls this first to avoid duplicates.
+            AppLogger.localStorage.debug("Nothing to delete for key \(key, privacy: .public)")
         } else {
             AppLogger.localStorage.error("Failed to delete value for key \(key, privacy: .public). Status: \(status)")
         }

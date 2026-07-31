@@ -7,12 +7,14 @@
 
 import Foundation
 import Moya
+@testable import iOSSkeletonApp
 
 class MockMovieApiDataSource: MoyaProvider<MovieAPI> {
     var stubResponse: Data?
     var stubError: Error?
 
-    override func request(_ target: Target, callbackQueue: DispatchQueue? = nil, progress: ProgressBlock? = nil, completion: @escaping Completion) -> Moya.Cancellable {
+    override func request(_ target: Target, callbackQueue: DispatchQueue? = nil,
+                          progress: ProgressBlock? = nil, completion: @escaping Completion) -> Moya.Cancellable {
         if let error = stubError {
             completion(.failure(.underlying(error, nil)))
         } else {

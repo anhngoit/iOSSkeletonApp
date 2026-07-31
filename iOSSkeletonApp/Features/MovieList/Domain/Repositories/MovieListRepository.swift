@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 
+// sourcery: AutoMockable
 protocol MovieListRepository {
     func getRemotePopularMovies() -> AnyPublisher<MoviePage, any Error>
     func getLocalPopularMovies() -> AnyPublisher<MoviePage?, Error>

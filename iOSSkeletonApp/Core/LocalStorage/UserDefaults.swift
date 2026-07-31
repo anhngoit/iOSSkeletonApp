@@ -57,7 +57,8 @@ public final class UserDefault<T> where T: Codable {
                 }
                 userDefault.set(newData, forKey: key)
             }
-            userDefault.synchronize()
+            // No `synchronize()`: it has been a no-op since iOS 7 and only
+            // ever cost a disk write.
         }
     }
     

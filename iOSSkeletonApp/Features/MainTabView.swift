@@ -8,19 +8,19 @@
 import SwiftUI
 
 struct MainTabView: View {
-        
+
     @EnvironmentObject var networkMonitor: NetworkMonitor
-    @State var currentTab: Tab = .firstTab
-    
+    @State private var currentTab: Tab = .firstTab
+
     var body: some View {
-        TabView {
-            MovieListView(viewModel: .init())
+        TabView(selection: $currentTab) {
+            MovieListView()
                 .tabItem {
                     Label("Movies", systemImage: "1.circle")
                 }
                 .tag(Tab.firstTab)
-            
-            MovieListView(viewModel: .init())
+
+            MovieListView()
                 .tabItem {
                     Label("Movies 2", systemImage: "2.circle")
                 }

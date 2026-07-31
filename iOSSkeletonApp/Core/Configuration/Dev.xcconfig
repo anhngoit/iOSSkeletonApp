@@ -16,4 +16,12 @@ BUILD_NUMBER = 1
 
 API_ENDPOINT_URL = https:/$()/api.themoviedb.org
 PHOTO_ENDPOINT_URL = https:/$()/image.tmdb.org/t/p/w342/
-ACCESS_TOKEN_AUTHEN = /// Enter your token here
+
+// Secrets are never stored in this file — it is tracked in git.
+// The real value lives in Secrets/Secrets.Dev.xcconfig, which is git-ignored.
+// Copy Secrets/Secrets.xcconfig.template to that path and fill it in.
+// The include is last on purpose: in xcconfig the last assignment wins, so the
+// secrets file overrides the empty default below. `#include?` (with the ?) does
+// not fail the build when the file is missing — you just get an empty token.
+ACCESS_TOKEN_AUTHEN =
+#include? "Secrets/Secrets.Dev.xcconfig"

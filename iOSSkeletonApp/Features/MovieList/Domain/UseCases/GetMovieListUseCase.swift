@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 
+// sourcery: AutoMockable
 protocol GetMovieListUseCase {
     func execute() -> AnyPublisher<MoviePage, any Error>
 }
