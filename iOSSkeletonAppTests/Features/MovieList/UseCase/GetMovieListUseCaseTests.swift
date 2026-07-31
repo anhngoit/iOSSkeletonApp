@@ -13,6 +13,7 @@ import Factory
 @testable import iOSSkeletonApp
 
 class GetMovieListUseCaseTests: QuickSpec {
+    // swiftlint:disable:next function_body_length
     override class func spec() {
         var mockRepository: MovieListRepositoryMock!
         var useCase: GetMovieListUseCaseImpl!

@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		CC13CD012E01E82500CCBA5F /* AppEntryPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC13CCFC2E01E82500CCBA5F /* AppEntryPoint.swift */; };
 		CC13CD042E01E82500CCBA5F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC13CCF72E01E82500CCBA5F /* Assets.xcassets */; };
-		CC13CD072E01E82500CCBA5F /* iOSSkeletonAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC13CD062E01E82500CCBA5F /* iOSSkeletonAppTests.swift */; };
 		CC13CD0A2E01E82500CCBA5F /* iOSSkeletonAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC13CD082E01E82500CCBA5F /* iOSSkeletonAppUITests.swift */; };
 		CC13CD0B2E01E82500CCBA5F /* iOSSkeletonAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC13CD092E01E82500CCBA5F /* iOSSkeletonAppUITestsLaunchTests.swift */; };
 		CC13CD172E03380700CCBA5F /* .swiftlint.yml in Sources */ = {isa = PBXBuildFile; fileRef = CC13CD162E0337FF00CCBA5F /* .swiftlint.yml */; };
@@ -104,7 +103,6 @@
 		CC13CCF72E01E82500CCBA5F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CC13CCF92E01E82500CCBA5F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CC13CCFC2E01E82500CCBA5F /* AppEntryPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEntryPoint.swift; sourceTree = "<group>"; };
-		CC13CD062E01E82500CCBA5F /* iOSSkeletonAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSSkeletonAppTests.swift; sourceTree = "<group>"; };
 		CC13CD082E01E82500CCBA5F /* iOSSkeletonAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSSkeletonAppUITests.swift; sourceTree = "<group>"; };
 		CC13CD092E01E82500CCBA5F /* iOSSkeletonAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSSkeletonAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		CC13CD162E0337FF00CCBA5F /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
@@ -255,7 +253,6 @@
 				CCF0000C2E0600000000A003 /* Mocks */,
 				CCE3793F2E05D65500C323AB /* Features */,
 				CCE379412E05D65500C323AB /* Utils */,
-				CC13CD062E01E82500CCBA5F /* iOSSkeletonAppTests.swift */,
 			);
 			path = iOSSkeletonAppTests;
 			sourceTree = "<group>";
@@ -752,6 +749,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				CC5446C4301CA5B400C2C9B9 /* PBXTargetDependency */,
 				CC13CCD92E01E7E000CCBA5F /* PBXTargetDependency */,
 			);
 			name = iOSSkeletonAppTests;
@@ -791,7 +789,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1610;
-				LastUpgradeCheck = 1610;
+				LastUpgradeCheck = 2660;
 				TargetAttributes = {
 					CC13CCBF2E01E7DE00CCBA5F = {
 						CreatedOnToolsVersion = 16.1;
@@ -933,7 +931,6 @@
 				CCE379572E05D72A00C323AB /* MockMovieLocalDataSource.swift in Sources */,
 				CCE379592E05D75200C323AB /* CancellableWrapper.swift in Sources */,
 				CCE3794D2E05D69000C323AB /* MovieListViewModelTests.swift in Sources */,
-				CC13CD072E01E82500CCBA5F /* iOSSkeletonAppTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -962,6 +959,10 @@
 		CC13CDE82E048ED800CCBA5F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			productRef = CC13CDE72E048ED800CCBA5F /* SwiftLintBuildToolPlugin */;
+		};
+		CC5446C4301CA5B400C2C9B9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = CC5446C3301CA5B400C2C9B9 /* SwiftLintBuildToolPlugin */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1087,6 +1088,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1145,6 +1147,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				VALIDATE_PRODUCT = YES;
@@ -1282,6 +1285,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1414,6 +1418,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1604,6 +1609,11 @@
 			productName = Moya;
 		};
 		CC13CDE72E048ED800CCBA5F /* SwiftLintBuildToolPlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CC13CD352E033DA700CCBA5F /* XCRemoteSwiftPackageReference "SwiftLint" */;
+			productName = "plugin:SwiftLintBuildToolPlugin";
+		};
+		CC5446C3301CA5B400C2C9B9 /* SwiftLintBuildToolPlugin */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = CC13CD352E033DA700CCBA5F /* XCRemoteSwiftPackageReference "SwiftLint" */;
 			productName = "plugin:SwiftLintBuildToolPlugin";

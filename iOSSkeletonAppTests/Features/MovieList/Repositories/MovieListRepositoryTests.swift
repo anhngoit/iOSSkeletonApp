@@ -15,6 +15,7 @@ import XCTest
 @testable import iOSSkeletonApp
 
 class MovieListRepositorySpec: QuickSpec {
+    // swiftlint:disable:next function_body_length
     override class func spec() {
         var repository: MovieListRepositoryImpl!
         var mockApi: MockMovieApiDataSource!
@@ -38,9 +39,10 @@ class MovieListRepositorySpec: QuickSpec {
             context("getRemotePopularMovies") {
                 it("returns decoded movies from API response") {
                     // Prepare a stub movie and response data
-                    let movieDTO = MovieDTO(id: 101, title: "Remote", genres: nil, posterPath: nil, backdropPath: nil, overview: nil, releaseDate: nil)
+                    let movieDTO = MovieDTO(id: 101, title: "Remote", genres: nil, posterPath: nil,
+                                            backdropPath: nil, overview: nil, releaseDate: nil)
                     let response = MovieResponse(page: 1, totalPages: 1, results: [movieDTO])
-                    let data = try! JSONEncoder().encode(response)
+                    guard let data = try? JSONEncoder().encode(response) else { return }
                     mockApi.stubResponse = data
 
                     waitUntil(timeout: .seconds(2)) { done in
