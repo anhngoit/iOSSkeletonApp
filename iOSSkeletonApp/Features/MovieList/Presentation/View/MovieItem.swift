@@ -11,9 +11,18 @@ import Kingfisher
 struct MovieItem: View {
     let movie: Movie
 
+    /// Joins the configured image host with the poster path without doubling
+    /// the separator — the endpoint ends in `/` and TMDB paths start with one.
+    private var posterURL: URL? {
+        guard let path = movie.posterPath, !path.isEmpty else { return nil }
+        let base = Environment.photoEndpointUrl
+        let suffix = path.hasPrefix("/") ? String(path.dropFirst()) : path
+        return URL(string: base.hasSuffix("/") ? base + suffix : base + "/" + suffix)
+    }
+
     var body: some View {
         VStack {
-            KFImage(URL(string: Environment.photoEndpointUrl + (movie.posterPath ?? "")))
+            KFImage(posterURL)
             .placeholder {
                 // Placeholder while loading image
                 Rectangle().fill(Color.gray)

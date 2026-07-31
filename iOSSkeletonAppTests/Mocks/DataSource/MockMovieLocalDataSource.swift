@@ -8,6 +8,7 @@
 import Foundation
 import Moya
 import Combine
+@testable import iOSSkeletonApp
 
 final class MockMovieLocalDataSource: CDDataSource<MoviePageCDModel>  {
     typealias Model = MoviePageCDModel

@@ -63,4 +63,10 @@ fastlane/test_output
 
 # macOS system files
 .DS_Store
-.DS_Store
+
+# Secrets
+#
+# Per-environment API tokens live in Core/Configuration/Secrets/ and must never
+# be committed. Only the template is tracked.
+Secrets.*.xcconfig
+!Secrets.xcconfig.template

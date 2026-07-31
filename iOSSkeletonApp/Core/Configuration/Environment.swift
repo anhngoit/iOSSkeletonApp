@@ -60,4 +60,26 @@ enum Environment: String {
         }
         return value
     }
+
+    /// Logs a loud, actionable message when configuration is incomplete.
+    ///
+    /// Call this at launch. Without it, an empty `ACCESS_TOKEN_AUTHEN` shows up
+    /// much later as an unexplained 401 from the API.
+    static func validate() {
+        AppLogger.application.info(
+            "Running \(current.rawValue, privacy: .public) build \(versionNumber, privacy: .public) (\(buildNumber, privacy: .public))"
+        )
+
+        if accessTokenAuthen.isEmpty {
+            AppLogger.application.error("""
+                ACCESS_TOKEN_AUTHEN is empty — every API call will fail with 401.
+                Copy Core/Configuration/Secrets/Secrets.xcconfig.template to \
+                Secrets.\(current.rawValue).xcconfig and fill in your TMDB token.
+                """)
+        }
+
+        if apiEndpointUrl.isEmpty {
+            AppLogger.application.error("API_ENDPOINT_URL is empty — check the \(current.rawValue, privacy: .public) .xcconfig.")
+        }
+    }
 }

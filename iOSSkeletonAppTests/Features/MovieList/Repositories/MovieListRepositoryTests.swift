@@ -12,6 +12,7 @@ import Foundation
 import Moya
 import Factory
 import XCTest
+@testable import iOSSkeletonApp
 
 class MovieListRepositorySpec: QuickSpec {
     override class func spec() {

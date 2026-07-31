@@ -11,11 +11,12 @@ import Factory
 
 @MainActor
 class MovieListViewModel: BaseViewModel {
-    
+
     // MARK: Use cases
     @Injected(\.movieListUseCase) private var movieListUseCase
 
     // MARK: Private Properties
+    private var hasLoaded = false
 
     // MARK: - Output
     @Published var movies: [Movie] = []
@@ -24,13 +25,14 @@ class MovieListViewModel: BaseViewModel {
 
     // MARK: - Localized
     let navigationTitle = "Movies"
-    
-    // MARK: Init
-    override init() {
-        super.init()
+
+    // MARK: Life Cycle
+    func onAppear() {
+        guard !hasLoaded else { return }
+        hasLoaded = true
         fetchMovies()
     }
-    
+
     // MARK: Private Methods
     private func fetchMovies() {
         isLoading = true
@@ -40,7 +42,7 @@ class MovieListViewModel: BaseViewModel {
                 guard let self = self else { return }
                 self.isLoading = false
                 if case .failure(let error) = completion {
-                    activeAlert = .error(error.localizedDescription)
+                    self.activeAlert = .error(error.localizedDescription)
                 }
             } receiveValue: { [weak self] movieResponse in
                 guard let self = self else { return }
@@ -49,16 +51,10 @@ class MovieListViewModel: BaseViewModel {
             }
             .store(in: &cancellables)
     }
-
 }
 
 extension MovieListViewModel {
 
-    // MARK: Life Cycle
-    func viewDidAppear() {
-        
-    }
-    
     // MARK: Actions
     func didSelectItem(at index: Int) {
 

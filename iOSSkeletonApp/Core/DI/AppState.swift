@@ -7,13 +7,11 @@
 
 import Foundation
 
-class AppState {
-// To Do
-//    var routing = ViewRouting()
-}
-
-extension AppState {
-//    class ViewRouting {
-//        var profile = profileView.Routing()
-//    }
+/// App-wide state shared across features, resolved as a singleton from
+/// `Container.appState`.
+///
+/// Kept deliberately small: put feature state in its own view model and only
+/// promote it here when more than one feature genuinely needs it. Navigation
+/// routing is the usual first candidate.
+final class AppState {
 }

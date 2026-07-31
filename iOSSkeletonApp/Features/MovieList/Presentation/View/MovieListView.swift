@@ -6,23 +6,21 @@
 //
 
 import SwiftUI
-import Moya
 
 struct MovieListView: View {
-    
-    @StateObject var viewModel: MovieListViewModel
+
+    @StateObject var viewModel = MovieListViewModel()
 
     let columns = [
         GridItem(.flexible()),
         GridItem(.flexible())
     ]
-    
+
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ScrollView {
                 LazyVGrid(columns: columns, spacing: 16) {
-                    ForEach(viewModel.movies.indices, id: \.self) { index in
-                        let movie = viewModel.movies[index]
+                    ForEach(Array(viewModel.movies.enumerated()), id: \.element.id) { index, movie in
                         MovieItem(movie: movie)
                             .onTapGesture {
                                 handleMovieSelection(at: index)
@@ -33,7 +31,7 @@ struct MovieListView: View {
             }
             .navigationTitle(viewModel.navigationTitle)
             .task {
-                viewModel.viewDidAppear()
+                viewModel.onAppear()
             }
             .overlay {
                 if viewModel.isLoading {
@@ -41,8 +39,12 @@ struct MovieListView: View {
                         .padding()
                         .background(Color.gray.opacity(0.3))
                         .cornerRadius(8)
-                } else {
-                    EmptyView()
+                } else if viewModel.isEmpty {
+                    ContentUnavailableView(
+                        "No movies",
+                        systemImage: "film",
+                        description: Text("Pull to refresh once you're back online.")
+                    )
                 }
             }
             .alert(item: $viewModel.activeAlert) { alertType in
@@ -53,7 +55,7 @@ struct MovieListView: View {
                         message: Text(message),
                         dismissButton: .default(Text("OK"))
                     )
-                    
+
                 case .success(let message):
                     return Alert(
                         title: Text("Success"),
@@ -64,7 +66,7 @@ struct MovieListView: View {
             }
         }
     }
-    
+
     private func handleMovieSelection(at index: Int) {
         viewModel.didSelectItem(at: index)
     }
@@ -77,20 +79,31 @@ extension MovieListView {
         case error(String)
         case success(String)
 
-        var id: String { UUID().uuidString }
+        /// Must be stable: SwiftUI diffs presented items by `id`, and returning
+        /// a fresh UUID on every read made the alert re-present itself.
+        var id: String {
+            switch self {
+            case .error(let message): return "error-\(message)"
+            case .success(let message): return "success-\(message)"
+            }
+        }
     }
 }
 
 // MARK: - Preview
-/// Mock ViewModel for Preview
-class MockMovieListViewModel: MovieListViewModel {
-  override init() {
-      super.init()
-      self.movies = [Movie.stub()]
-  }
+#if DEBUG
+/// Preview-only view model. Kept behind `#if DEBUG` so it never ships.
+final class MockMovieListViewModel: MovieListViewModel {
+    init(movies: [Movie]) {
+        super.init()
+        self.movies = movies
+    }
+
+    /// Previews must not hit the network.
+    override func onAppear() {}
 }
 
 #Preview {
-    let mockViewModel = MockMovieListViewModel()
-    return MovieListView(viewModel: mockViewModel)
+    MovieListView(viewModel: MockMovieListViewModel(movies: [Movie.stub()]))
 }
+#endif

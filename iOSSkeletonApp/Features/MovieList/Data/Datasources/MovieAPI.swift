@@ -23,7 +23,13 @@ extension MovieAPI: TargetType {
     }
     
     var baseURL: URL {
-        return URL(string: Environment.apiEndpointUrl)!
+        guard let url = URL(string: Environment.apiEndpointUrl) else {
+            fatalError("""
+                API_ENDPOINT_URL is missing or invalid (got "\(Environment.apiEndpointUrl)").
+                Check the .xcconfig for the \(Environment.current.rawValue) configuration.
+                """)
+        }
+        return url
     }
     
     var path: String {

@@ -9,32 +9,36 @@ import Foundation
 import Factory
 import Combine
 
-class GetMovieListUseCaseImpl: GetMovieListUseCase {
-    
+final class GetMovieListUseCaseImpl: GetMovieListUseCase {
+
     @Injected(\.movieListRepository) private var movieListRepository
-    
-    private var cancellables = Set<AnyCancellable>()
 
-    init() {
-
-    }
-    
     func execute() -> AnyPublisher<MoviePage, any Error> {
-        let fallbackPage = MoviePage(page: 0, totalPages: 0, movies: [])
-        
-        let cached = movieListRepository.getLocalPopularMovies()
-            .compactMap { $0 } // unwrap Optional<MoviePage>
-            .handleEvents(receiveOutput: { _ in })
-            .timeout(.seconds(2), scheduler: DispatchQueue.main, customError: { AppError.timeout })
-            .catch { _ in Just(fallbackPage).setFailureType(to: Error.self) }
+        let repository = movieListRepository
 
-        let fresh = movieListRepository.getRemotePopularMovies()
-            .handleEvents(receiveOutput: { fresh in
-                self.movieListRepository.savePopularMovies(movieResponse: fresh)
-                    .sink(receiveCompletion: { _ in }, receiveValue: { })
-                    .store(in: &self.cancellables)
-            })
-    
+        let cached = repository.getLocalPopularMovies()
+            .compactMap { $0 }
+            .timeout(.seconds(AppConstants.Cache.localReadTimeout), scheduler: DispatchQueue.main, customError: { AppError.timeout })
+            .catch { error -> Empty<MoviePage, Error> in
+                AppLogger.localStorage.info(
+                    "Cache miss for popular movies: \(error.localizedDescription, privacy: .public)"
+                )
+                return Empty(completeImmediately: true)
+            }
+
+        let fresh = repository.getRemotePopularMovies()
+            .flatMap { page in
+                repository.savePopularMovies(movieResponse: page)
+                    .catch { error -> Just<Void> in
+                        AppLogger.localStorage.error(
+                            "Failed to cache popular movies: \(error.localizedDescription, privacy: .public)"
+                        )
+                        return Just(())
+                    }
+                    .map { _ in page }
+                    .setFailureType(to: Error.self)
+            }
+
         return cached
             .append(fresh)
             .eraseToAnyPublisher()

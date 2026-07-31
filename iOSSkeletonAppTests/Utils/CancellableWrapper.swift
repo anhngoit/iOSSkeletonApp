@@ -6,6 +6,7 @@
 //
 
 import Moya
+@testable import iOSSkeletonApp
 
 /// Simple wrapper that conforms to Moya's Cancellable protocol for mocking purposes.
 class CancellableWrapper: Moya.Cancellable {

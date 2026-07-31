@@ -7,6 +7,7 @@
 
 import Foundation
 import Moya
+@testable import iOSSkeletonApp
 
 class MockMovieApiDataSource: MoyaProvider<MovieAPI> {
     var stubResponse: Data?

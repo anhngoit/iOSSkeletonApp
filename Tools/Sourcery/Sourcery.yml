@@ -1,0 +1,58 @@
+# Sourcery configuration for generating protocol mocks.
+#
+# Run from the repository root, by hand, after changing an annotated protocol:
+#
+#     sourcery --config Tools/Sourcery/Sourcery.yml
+#
+# This is intentionally NOT hooked up to an Xcode build phase. Generation reads
+# the whole source tree and writes outside the build directory, which a script
+# phase can only do with ENABLE_USER_SCRIPT_SANDBOXING = NO. This project keeps
+# script sandboxing enabled, so generation stays a manual step and the output is
+# committed to git.
+#
+# All paths below are relative to THIS FILE, not to the working directory —
+# that is why they start with ../../ to climb back out to the repo root.
+#
+# To make a protocol mockable, annotate it with a Sourcery comment:
+#
+#     // sourcery: AutoMockable
+#     protocol MovieListRepository { ... }
+#
+# The generated type drops a trailing "Protocol" from the name and appends
+# "Mock", so `MovieListRepository` becomes `MovieListRepositoryMock`.
+
+sources:
+  include:
+    - ../../iOSSkeletonApp
+  exclude:
+    # Nothing generated lives under the app target today. If you ever move the
+    # `output` below into iOSSkeletonApp/, exclude it here — Sourcery must not
+    # parse its own output and generate mocks of the mocks.
+    - ../../iOSSkeletonApp/Resources
+
+templates:
+  - AutoMockable.stencil
+
+# Mocks are generated into the TEST target, not the app target, so no mock code
+# is ever compiled into a shipping build.
+#
+# Trade-off: SwiftUI previews live in the app target and therefore cannot use
+# these mocks. If you want previews driven by generated mocks (this is what
+# element-x-ios does), move the output under
+# ../../iOSSkeletonApp/Sources/Mocks/Generated/, drop the testable import in
+# `args` below, add the exclude noted above, and wrap the file in `#if DEBUG`.
+output:
+  ../../iOSSkeletonAppTests/Mocks/Generated/GeneratedMocks.swift
+
+args:
+  # Emitted as `@testable import <name>`. Required because the generated mocks
+  # live in the test target but conform to protocols that are `internal` to the
+  # app module.
+  autoMockableTestableImports:
+    - iOSSkeletonApp
+
+  # Emitted as plain `import <name>`. Add a framework here when a mocked
+  # protocol's signature exposes one of its types (e.g. Moya's `Response`, or
+  # CoreData's `NSManagedObjectContext`). Keep it empty otherwise — an unused
+  # import in generated code is noise.
+  autoMockableImports: []
