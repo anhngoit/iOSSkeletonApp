@@ -209,7 +209,7 @@ Config lives in [Tools/Sourcery](Tools/Sourcery); output is committed at `iOSSke
 
    * The application has been set up with 4 schemes for 4 environments with 4 config files:
 
-   <img src="https://github.com/anhngoit/iOSSkeletonApp/blob/main/iOSSkeletonApp/Resources/Assets.xcassets/schema.imageset/Screenshot%202024-09-20%20at%2016.59.14.png" width="65%">
+   <img src="https://github.com/anhngoit/iOSSkeletonApp/blob/main/iOSSkeletonApp/Resources/Assets.xcassets/schema.imageset/schema.png" width="65%">
 
    * Tokens go in **git-ignored** files under `iOSSkeletonApp/Core/Configuration/Secrets/`, never in the tracked `Dev/QC/UAT/Production.xcconfig`. Create one per environment you build:
 
