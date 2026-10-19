@@ -9,6 +9,12 @@ import Foundation
 import Combine
 import Factory
 
+/// Emitted upwards to `MovieListScreenCoordinator`, which decides what the
+/// navigation should do about it. The view model never navigates itself.
+enum MovieListViewModelAction: Equatable {
+    case selectMovie(Movie)
+}
+
 @MainActor
 class MovieListViewModel: BaseViewModel {
 
@@ -25,6 +31,13 @@ class MovieListViewModel: BaseViewModel {
 
     // MARK: - Localized
     let navigationTitle = "Movies"
+
+    // MARK: - Actions
+    private let actionsSubject = PassthroughSubject<MovieListViewModelAction, Never>()
+
+    var actions: AnyPublisher<MovieListViewModelAction, Never> {
+        actionsSubject.eraseToAnyPublisher()
+    }
 
     // MARK: Life Cycle
     func onAppear() {
@@ -57,6 +70,9 @@ extension MovieListViewModel {
 
     // MARK: Actions
     func didSelectItem(at index: Int) {
-
+        // The grid is built from `movies.enumerated()`, so a tap can still be
+        // delivered after a refresh shrank the array.
+        guard movies.indices.contains(index) else { return }
+        actionsSubject.send(.selectMovie(movies[index]))
     }
 }

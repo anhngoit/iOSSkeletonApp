@@ -65,6 +65,19 @@
 		CC13CDD12E03458700CCBA5F /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = CC13CDD02E03458700CCBA5F /* Localizable.xcstrings */; };
 		CC13CDD32E0345C800CCBA5F /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC13CDD22E0345C800CCBA5F /* Colors.xcassets */; };
 		CC13CDDC2E0346E200CCBA5F /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CC13CDDA2E0346E200CCBA5F /* Model.xcdatamodeld */; };
+		CC9000000000000000000003 /* CoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9000000000000000000002 /* CoordinatorProtocol.swift */; };
+		CC9000000000000000000005 /* NavigationModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9000000000000000000004 /* NavigationModule.swift */; };
+		CC9000000000000000000007 /* NavigationStackCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9000000000000000000006 /* NavigationStackCoordinator.swift */; };
+		CC900000000000000000000C /* MockCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC900000000000000000000B /* MockCoordinator.swift */; };
+		CC900000000000000000000E /* NavigationStackCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC900000000000000000000D /* NavigationStackCoordinatorTests.swift */; };
+		CC9000000000000000000017 /* MovieDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9000000000000000000016 /* MovieDetailViewModel.swift */; };
+		CC9000000000000000000019 /* MovieDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9000000000000000000018 /* MovieDetailView.swift */; };
+		CC900000000000000000001B /* MovieDetailScreenCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC900000000000000000001A /* MovieDetailScreenCoordinator.swift */; };
+		CC900000000000000000001D /* MovieDetailViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC900000000000000000001C /* MovieDetailViewModelTests.swift */; };
+		CC9000000000000000000020 /* MovieListScreenCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC900000000000000000001F /* MovieListScreenCoordinator.swift */; };
+		CC9000000000000000000022 /* MovieListFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9000000000000000000021 /* MovieListFlowCoordinator.swift */; };
+		CC9000000000000000000024 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9000000000000000000023 /* AppCoordinator.swift */; };
+		CC9000000000000000000027 /* MovieListFlowCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9000000000000000000026 /* MovieListFlowCoordinatorTests.swift */; };
 		CCE3794D2E05D69000C323AB /* MovieListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE3794C2E05D68F00C323AB /* MovieListViewModelTests.swift */; };
 		CCE3794F2E05D6B800C323AB /* GetMovieListUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE3794E2E05D6B700C323AB /* GetMovieListUseCaseTests.swift */; };
 		CCE379512E05D6D800C323AB /* MovieListRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE379502E05D6D700C323AB /* MovieListRepositoryTests.swift */; };
@@ -165,6 +178,19 @@
 		CC5446BA301BB82800C2C9B9 /* Secrets.QC.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.QC.xcconfig; sourceTree = "<group>"; };
 		CC5446BB301BB82800C2C9B9 /* Secrets.UAT.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.UAT.xcconfig; sourceTree = "<group>"; };
 		CC5446BC301BB82800C2C9B9 /* Secrets.xcconfig.template */ = {isa = PBXFileReference; lastKnownFileType = text; path = Secrets.xcconfig.template; sourceTree = "<group>"; };
+		CC9000000000000000000002 /* CoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorProtocol.swift; sourceTree = "<group>"; };
+		CC9000000000000000000004 /* NavigationModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationModule.swift; sourceTree = "<group>"; };
+		CC9000000000000000000006 /* NavigationStackCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationStackCoordinator.swift; sourceTree = "<group>"; };
+		CC900000000000000000000B /* MockCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCoordinator.swift; sourceTree = "<group>"; };
+		CC900000000000000000000D /* NavigationStackCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationStackCoordinatorTests.swift; sourceTree = "<group>"; };
+		CC9000000000000000000016 /* MovieDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailViewModel.swift; sourceTree = "<group>"; };
+		CC9000000000000000000018 /* MovieDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailView.swift; sourceTree = "<group>"; };
+		CC900000000000000000001A /* MovieDetailScreenCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailScreenCoordinator.swift; sourceTree = "<group>"; };
+		CC900000000000000000001C /* MovieDetailViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailViewModelTests.swift; sourceTree = "<group>"; };
+		CC900000000000000000001F /* MovieListScreenCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListScreenCoordinator.swift; sourceTree = "<group>"; };
+		CC9000000000000000000021 /* MovieListFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListFlowCoordinator.swift; sourceTree = "<group>"; };
+		CC9000000000000000000023 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		CC9000000000000000000026 /* MovieListFlowCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListFlowCoordinatorTests.swift; sourceTree = "<group>"; };
 		CCE3794C2E05D68F00C323AB /* MovieListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListViewModelTests.swift; sourceTree = "<group>"; };
 		CCE3794E2E05D6B700C323AB /* GetMovieListUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMovieListUseCaseTests.swift; sourceTree = "<group>"; };
 		CCE379502E05D6D700C323AB /* MovieListRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListRepositoryTests.swift; sourceTree = "<group>"; };
@@ -215,6 +241,7 @@
 		CC13CCB72E01E7DE00CCBA5F = {
 			isa = PBXGroup;
 			children = (
+				CC13CD162E0337FF00CCBA5F /* .swiftlint.yml */,
 				52EF17C22E83CD34008CAA83 /* ci_scripts */,
 				CC13CD0C2E03352200CCBA5F /* iOSSkeletonApp */,
 				CC13CD102E03355B00CCBA5F /* iOSSkeletonAppTests */,
@@ -237,7 +264,6 @@
 		CC13CD0C2E03352200CCBA5F /* iOSSkeletonApp */ = {
 			isa = PBXGroup;
 			children = (
-				CC13CD162E0337FF00CCBA5F /* .swiftlint.yml */,
 				CC13CD122E0335AB00CCBA5F /* Application */,
 				CC13CD132E0335B900CCBA5F /* Core */,
 				CC13CD142E0335C400CCBA5F /* Features */,
@@ -252,6 +278,7 @@
 				CCF0000C2E0600000000A003 /* Mocks */,
 				CCE3793F2E05D65500C323AB /* Features */,
 				CCE379412E05D65500C323AB /* Utils */,
+				CC9000000000000000000008 /* Core */,
 			);
 			path = iOSSkeletonAppTests;
 			sourceTree = "<group>";
@@ -269,6 +296,7 @@
 			isa = PBXGroup;
 			children = (
 				CC13CCFC2E01E82500CCBA5F /* AppEntryPoint.swift */,
+				CC9000000000000000000023 /* AppCoordinator.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -284,6 +312,7 @@
 				CC13CD5A2E03401900CCBA5F /* Logger */,
 				CC13CD5D2E03403A00CCBA5F /* Common */,
 				CC13CD642E03408A00CCBA5F /* Utilities */,
+				CC9000000000000000000001 /* Navigation */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -294,6 +323,7 @@
 				CC13CD672E03433900CCBA5F /* MainTabView.swift */,
 				CC13CD692E03435700CCBA5F /* Components */,
 				CC13CD6A2E03436400CCBA5F /* MovieList */,
+				CC900000000000000000000F /* MovieDetail */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -460,6 +490,7 @@
 			children = (
 				CC13CD6E2E03437200CCBA5F /* View */,
 				CC13CD702E03437200CCBA5F /* ViewModel */,
+				CC900000000000000000001E /* Coordinator */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -637,6 +668,115 @@
 			path = Secrets;
 			sourceTree = "<group>";
 		};
+		CC9000000000000000000001 /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				CC9000000000000000000002 /* CoordinatorProtocol.swift */,
+				CC9000000000000000000004 /* NavigationModule.swift */,
+				CC9000000000000000000006 /* NavigationStackCoordinator.swift */,
+			);
+			path = Navigation;
+			sourceTree = "<group>";
+		};
+		CC9000000000000000000008 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				CC9000000000000000000009 /* Navigation */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		CC9000000000000000000009 /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				CC900000000000000000000D /* NavigationStackCoordinatorTests.swift */,
+			);
+			path = Navigation;
+			sourceTree = "<group>";
+		};
+		CC900000000000000000000A /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				CC900000000000000000000B /* MockCoordinator.swift */,
+			);
+			path = Navigation;
+			sourceTree = "<group>";
+		};
+		CC900000000000000000000F /* MovieDetail */ = {
+			isa = PBXGroup;
+			children = (
+				CC9000000000000000000010 /* Presentation */,
+			);
+			path = MovieDetail;
+			sourceTree = "<group>";
+		};
+		CC9000000000000000000010 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				CC9000000000000000000011 /* ViewModel */,
+				CC9000000000000000000012 /* View */,
+				CC9000000000000000000013 /* Coordinator */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		CC9000000000000000000011 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				CC9000000000000000000016 /* MovieDetailViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		CC9000000000000000000012 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CC9000000000000000000018 /* MovieDetailView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		CC9000000000000000000013 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				CC900000000000000000001A /* MovieDetailScreenCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		CC9000000000000000000014 /* MovieDetail */ = {
+			isa = PBXGroup;
+			children = (
+				CC9000000000000000000015 /* ViewModel */,
+			);
+			path = MovieDetail;
+			sourceTree = "<group>";
+		};
+		CC9000000000000000000015 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				CC900000000000000000001C /* MovieDetailViewModelTests.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		CC900000000000000000001E /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				CC900000000000000000001F /* MovieListScreenCoordinator.swift */,
+				CC9000000000000000000021 /* MovieListFlowCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		CC9000000000000000000025 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				CC9000000000000000000026 /* MovieListFlowCoordinatorTests.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
 		CCE379352E05D65500C323AB /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
@@ -667,6 +807,7 @@
 				CCE3793D2E05D65500C323AB /* ViewModel */,
 				CCE379392E05D65500C323AB /* UseCase */,
 				CCE379352E05D65500C323AB /* Repositories */,
+				CC9000000000000000000025 /* Coordinator */,
 			);
 			path = MovieList;
 			sourceTree = "<group>";
@@ -675,6 +816,7 @@
 			isa = PBXGroup;
 			children = (
 				CCE3793E2E05D65500C323AB /* MovieList */,
+				CC9000000000000000000014 /* MovieDetail */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -699,6 +841,7 @@
 			children = (
 				CC5446B7301B990100C2C9B9 /* DataSource */,
 				CCF0000D2E0600000000A004 /* Generated */,
+				CC900000000000000000000A /* Navigation */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -915,6 +1058,15 @@
 				CC13CDDC2E0346E200CCBA5F /* Model.xcdatamodeld in Sources */,
 				CC13CD3A2E033E2C00CCBA5F /* CustomMoyaPlugin.swift in Sources */,
 				CC13CDAC2E0343DB00CCBA5F /* MovieListViewModel.swift in Sources */,
+				CC9000000000000000000003 /* CoordinatorProtocol.swift in Sources */,
+				CC9000000000000000000005 /* NavigationModule.swift in Sources */,
+				CC9000000000000000000007 /* NavigationStackCoordinator.swift in Sources */,
+				CC9000000000000000000017 /* MovieDetailViewModel.swift in Sources */,
+				CC9000000000000000000019 /* MovieDetailView.swift in Sources */,
+				CC900000000000000000001B /* MovieDetailScreenCoordinator.swift in Sources */,
+				CC9000000000000000000020 /* MovieListScreenCoordinator.swift in Sources */,
+				CC9000000000000000000022 /* MovieListFlowCoordinator.swift in Sources */,
+				CC9000000000000000000024 /* AppCoordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -929,6 +1081,10 @@
 				CCE379572E05D72A00C323AB /* MockMovieLocalDataSource.swift in Sources */,
 				CCE379592E05D75200C323AB /* CancellableWrapper.swift in Sources */,
 				CCE3794D2E05D69000C323AB /* MovieListViewModelTests.swift in Sources */,
+				CC900000000000000000000C /* MockCoordinator.swift in Sources */,
+				CC900000000000000000000E /* NavigationStackCoordinatorTests.swift in Sources */,
+				CC900000000000000000001D /* MovieDetailViewModelTests.swift in Sources */,
+				CC9000000000000000000027 /* MovieListFlowCoordinatorTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -122,6 +122,40 @@ class MovieListViewModelTests: QuickSpec {
                     expect(viewModel.isEmpty).to(beFalse())
                 }
             }
+
+            context("when an item is selected") {
+                it("emits selectMovie with the tapped movie") {
+                    let expectedMovie = Movie.stub()
+                    stubExecute(returns: MoviePage(page: 1, totalPages: 1, movies: [expectedMovie]))
+                    viewModel = MovieListViewModel()
+                    viewModel.onAppear()
+                    expect(viewModel.movies).toEventually(equal([expectedMovie]), timeout: .seconds(2))
+
+                    var received: MovieListViewModelAction?
+                    viewModel.actions
+                        .sink { received = $0 }
+                        .store(in: &cancellables)
+
+                    viewModel.didSelectItem(at: 0)
+
+                    expect(received).to(equal(.selectMovie(expectedMovie)))
+                }
+
+                // The grid enumerates `movies`, so a tap can arrive after a
+                // refresh shrank the array.
+                it("ignores an out-of-range index") {
+                    viewModel = MovieListViewModel()
+
+                    var received: MovieListViewModelAction?
+                    viewModel.actions
+                        .sink { received = $0 }
+                        .store(in: &cancellables)
+
+                    viewModel.didSelectItem(at: 5)
+
+                    expect(received).to(beNil())
+                }
+            }
         }
     }
 }

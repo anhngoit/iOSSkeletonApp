@@ -10,17 +10,20 @@ import SwiftUI
 struct MainTabView: View {
 
     @EnvironmentObject var networkMonitor: NetworkMonitor
-    @State private var currentTab: Tab = .firstTab
+
+    /// The shell only renders what the coordinator hands it; each tab's content
+    /// is that tab's navigation stack.
+    @ObservedObject var appCoordinator: AppCoordinator
 
     var body: some View {
-        TabView(selection: $currentTab) {
-            MovieListView()
+        TabView(selection: $appCoordinator.selectedTab) {
+            appCoordinator.presentable(for: .firstTab)
                 .tabItem {
                     Label("Movies", systemImage: "1.circle")
                 }
                 .tag(Tab.firstTab)
 
-            MovieListView()
+            appCoordinator.presentable(for: .secondTab)
                 .tabItem {
                     Label("Movies 2", systemImage: "2.circle")
                 }
