@@ -2,17 +2,18 @@
 
 # iOSSkeletonApp
 
-A **starting point for new iOS apps**: modern Clean Architecture + MVVM with dependency injection via [Factory](https://github.com/hmlongco/Factory). Built as a real-world reference for scalable, testable, and maintainable app development. Includes a local storage abstraction (Core Data, with SwiftData models scaffolded), networking (Moya + Alamofire), and a demo “Movie List” module wired end to end.
+A **starting point for new iOS apps**: modern Clean Architecture + MVVM + Coordinator with dependency injection via [Factory](https://github.com/hmlongco/Factory). Built as a real-world reference for scalable, testable, and maintainable app development. Includes a local storage abstraction (Core Data, with SwiftData models scaffolded), networking (Moya + Alamofire), and a demo “Movie List → Movie Detail” flow wired end to end.
 <br>
 
 ## 🚀 Features
 
-* **Clean Architecture + MVVM**
-  Each feature module strictly follows Clean Architecture, layered for maintainability, and leverages MVVM for presentation:
+* **Clean Architecture + MVVM + Coordinator**
+  Each feature module strictly follows Clean Architecture, layered for maintainability, uses MVVM for presentation, and hands navigation to Coordinators:
 
   * **Presentation (MVVM):** Pure SwiftUI views with dedicated ViewModels for UI state and logic.
   * **Domain:** UseCases, Entities, and Repository protocols—business logic isolated from frameworks.
   * **Data:** All implementation details for networking and persistence. Easily mockable.
+  * **Navigation (Coordinator):** Views and ViewModels never navigate. They emit actions; coordinators decide what goes on screen and drive `NavigationStack`, sheets and full-screen covers — so navigation is unit-testable without rendering a view. See [Navigation](#-navigation-coordinator-pattern).
   * **Dependency Injection:** Powered by Factory for flexible, testable dependency management.
   <br>
   >  Build features with high separation of concerns, excellent testability, and scalable code structure.
@@ -32,8 +33,8 @@ A **starting point for new iOS apps**: modern Clean Architecture + MVVM with dep
 * **Configurable Environments**
   Multi-target: Dev, QC, UAT, Production.
 
-* **Demo: Movie List**
-  Loads and caches movies from API, presents as a responsive SwiftUI grid, includes offline/error states.
+* **Demo: Movie List → Movie Detail**
+  Loads and caches movies from API, presents them as a responsive SwiftUI grid, and pushes a detail screen on tap — every navigation decision made by a coordinator.
 
 ---
 
@@ -42,13 +43,14 @@ A **starting point for new iOS apps**: modern Clean Architecture + MVVM with dep
 ```
 iOSSkeletonApp/
 │
-├── Application/                  // App entry point
+├── Application/                  // App entry point + AppCoordinator (root of the coordinator tree)
 ├── Core/                        // Foundation for DI, Networking, Storage, etc.
 │   ├── Configuration/
 │   │   ├── Secrets/             // Git-ignored per-env tokens + tracked template
 │   ├── DI/
 │   ├── Networking/
 │   ├── LocalStorage/
+│   ├── Navigation/              // CoordinatorProtocol, NavigationStackCoordinator, NavigationModule
 │   ├── Extensions/
 │   ├── Logger/
 │   ├── Common/
@@ -56,8 +58,10 @@ iOSSkeletonApp/
 │
 ├── Features/                     // Feature modules (e.g., MovieList)
 │   ├── MainTabView/
+│   ├── MovieDetail/             // Presentation-only; reached by a push from MovieList
 │   ├── MovieList/
 │       ├── Presentation/
+│           ├── Coordinator/     // Flow coordinator + screen coordinator
 │           ├── View/
 │           ├── ViewModel/
 │       ├── Domain/
@@ -74,8 +78,10 @@ iOSSkeletonApp/
 ├── Tools/Sourcery/              // Mock generation: config + stencil
 ├── iOSSkeletonAppTests/         // Unit tests
 │   ├── Features/                // Specs, mirroring the app's feature tree
+│   ├── Core/Navigation/         // NavigationStackCoordinator specs
 │   ├── Mocks/
 │   │   ├── DataSource/          // Hand-written doubles for concrete classes
+│   │   ├── Navigation/          // MockCoordinator
 │   │   ├── Generated/           // Sourcery output — do not edit
 │   ├── Utils/
 ├── iOSSkeletonAppUITests/       // UI Tests
@@ -96,23 +102,54 @@ iOSSkeletonApp/
 
 ---
 
-## 🧑‍💻 Architecture Details (Clean Architecture + MVVM)
+## 🧑‍💻 Architecture Details (Clean Architecture + MVVM + Coordinator)
 ![](https://github.com/anhngoit/iOSSkeletonApp/blob/main/iOSSkeletonApp/Resources/Assets.xcassets/architecture_overview.imageset/architecture_overview.png)
-The codebase is organized with a strict Clean Architecture approach, seamlessly blended with the MVVM pattern for the Presentation layer:
+The codebase is organized with a strict Clean Architecture approach, blended with the MVVM pattern for the Presentation layer and the Coordinator pattern for navigation:
 
 * **Feature-oriented structure:** Every business feature gets its own module inside `Features/`, containing everything needed for scalable, independent growth.
-* **Presentation Layer:** SwiftUI views are paired with their ViewModels. ViewModels handle state, UI logic, and delegate domain actions via protocols.
+* **Presentation Layer:** SwiftUI views are paired with their ViewModels. ViewModels handle state, UI logic, and delegate domain actions via protocols. They never navigate — they emit actions instead.
 * **Domain Layer:** UseCases encapsulate business rules, Entities model your business objects, and Repositories define contracts. No dependency on frameworks, so it's pure and testable.
 * **Data Layer:** Implements repositories, networking (Moya/Alamofire), and persistence (CoreData/SwiftData) via protocols. Data mapping is explicit and safe.
+* **Navigation Layer:** Coordinators own the screen flow. A screen coordinator owns one ViewModel and re-emits its actions; a flow coordinator turns those actions into push / sheet / full-screen cover calls on a `NavigationStackCoordinator`; `AppCoordinator` owns one stack per tab. See [Navigation](#-navigation-coordinator-pattern).
 * **Dependency Injection:** Managed by Factory, which enables environment-specific injection, mock/stub swapping, and test preview setups without boilerplate.
 * **Local Storage behind a protocol:** `LocalStorage` defines the contract and `CDDataSource` implements it over Core Data, so a different engine can be dropped in without touching the layers above. SwiftData models are scaffolded for that path but not yet registered in the container.
 
 This structure delivers:
 
-* Total separation of concerns (UI, business logic, persistence, DI are all isolated)
+* Total separation of concerns (UI, navigation, business logic, persistence, DI are all isolated)
 * Easily swappable implementations for every dependency (great for tests, previews, and environment configs)
 * Rapid onboarding: new team members see the same structure everywhere
 * Feature modules scale independently, so growth is never chaos
+
+---
+
+## 🧭 Navigation (Coordinator Pattern)
+
+Navigation lives in coordinators, never in views. A view fires an intent, a coordinator decides what that intent means for the screen stack.
+
+| Type | Role |
+|---|---|
+| [`CoordinatorProtocol`](iOSSkeletonApp/Core/Navigation/CoordinatorProtocol.swift) | A presentable unit of UI: `start()`, `stop()`, `toPresentable()`. Screens and containers conform to it. |
+| [`NavigationStackCoordinator`](iOSSkeletonApp/Core/Navigation/NavigationStackCoordinator.swift) | The only type that touches `NavigationStack`, `.sheet` and `.fullScreenCover`. `push`, `pop`, `popToRoot`, `setRootCoordinator`, `setSheetCoordinator` — all imperative, all testable without a view. |
+| **Screen coordinator** (`MovieListScreenCoordinator`) | Owns one view model, vends its view, and re-emits the view model's actions. |
+| **Flow coordinator** (`MovieListFlowCoordinator`) | Owns no view. Turns screen actions into `push` / `pop` / sheets on the stack it was handed — the only place that knows "select a movie" means "push the detail". |
+| [`AppCoordinator`](iOSSkeletonApp/Application/AppCoordinator.swift) | Root of the tree. One stack per tab, so each tab keeps its own depth. |
+
+A tap travels four narrow, testable hops:
+
+```
+MovieListView ──didSelectItem──▶ MovieListViewModel ──.selectMovie──▶ MovieListScreenCoordinator
+                                                                              │ re-emits
+                                                                              ▼
+                       NavigationStackCoordinator ◀──push(detail)── MovieListFlowCoordinator
+```
+
+Two lifecycle rules worth knowing before you add a screen:
+
+* **Subscribe before presenting.** `setRootCoordinator` and `push` call the child's `start()` synchronously, so wire up its `actions` first.
+* **Capture `self` weakly in dismissal callbacks.** The stack holds the module, the module holds the closure, the flow holds the stack — a strong capture is a retain cycle. The callback fires for programmatic pops *and* swipe-back.
+
+The pattern and its trade-offs are written up in full in the [CoordinatorPattern](https://github.com/anhngoit/CoordinatorPattern) repo this layer was ported from.
 
 ---
 
@@ -240,12 +277,14 @@ Config lives in [Tools/Sourcery](Tools/Sourcery); output is committed at `iOSSke
 
 ---
 
-## 🎬 Demo Feature: Movie List
+## 🎬 Demo Feature: Movie List → Movie Detail
 
 * Loads movies from API using `MovieAPI` (The Movie DB style endpoint, easily swappable).
 * Caches page 1 to Core Data.
 * Emits the cached page first, then the fresh one, so the list renders before the network answers.
 * Displays in a SwiftUI grid, with loading, empty, and error states plus an offline alert.
+* Tapping a poster pushes **Movie Detail** — backdrop, release date, genres, overview. It renders the `Movie` the list already loaded, so it has no use case or repository; it exists to show the push half of the coordinator pattern.
+* Two identical tabs, deliberately: they give `AppCoordinator` a real reason to own more than one navigation stack.
 
 ---
 
@@ -280,6 +319,7 @@ Config lives in [Tools/Sourcery](Tools/Sourcery); output is committed at `iOSSke
 ## 📦 How to Extend
 
 * Add features by duplicating the `Features/YourFeatureName` structure.
+* Give each new screen a **screen coordinator** that owns its view model and re-emits its actions, then present it from a **flow coordinator** with `push` or `setSheetCoordinator`. Views stay navigation-free — no `NavigationLink`, no `.sheet(isPresented:)`.
 * Register new dependencies in `DIContainer`.
 * Get a test double for free: annotate the protocol with `// sourcery: AutoMockable` and re-run Sourcery. See [Generated mocks](#-generated-mocks) below.
 * Add local storage/data models as needed (use provided protocols/extensions).

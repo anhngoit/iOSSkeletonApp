@@ -14,15 +14,45 @@ jobs:
   lint:
     name: SwiftLint
     runs-on: macos-15
+    env:
+      # "latest" installs the newest SwiftLint release on every run. Set a
+      # release tag (e.g. "0.59.1") to pin one instead.
+      #
+      # Note: Xcode's build-tool plugin runs the version pinned in
+      # Package.resolved, which can be older than "latest". CI may then flag a
+      # rule Xcode never reports; bump the SwiftLint package to close the gap.
+      SWIFTLINT_VERSION: latest
     steps:
       - uses: actions/checkout@v4
 
       - name: Install SwiftLint
-        run: brew install swiftlint
+        run: |
+          set -euo pipefail
+          base="https://github.com/realm/SwiftLint/releases"
+          if [ "$SWIFTLINT_VERSION" = "latest" ]; then
+            url="$base/latest/download/portable_swiftlint.zip"
+          else
+            url="$base/download/$SWIFTLINT_VERSION/portable_swiftlint.zip"
+          fi
+          dir="$RUNNER_TEMP/swiftlint"
+          mkdir -p "$dir"
+          curl -fsSL "$url" -o "$dir/swiftlint.zip"
+          unzip -q -o "$dir/swiftlint.zip" -d "$dir"
+          chmod +x "$dir/swiftlint"
+          installed=$("$dir/swiftlint" version)
+          if [ "$SWIFTLINT_VERSION" != "latest" ] && [ "$installed" != "$SWIFTLINT_VERSION" ]; then
+            echo "::error::Expected SwiftLint $SWIFTLINT_VERSION, got $installed"
+            exit 1
+          fi
+          echo "Using SwiftLint $installed"
+          echo "$dir" >> "$GITHUB_PATH"
 
-      # .swiftlint.yml sets `strict: true`, so any warning fails the job.
+      # .swiftlint.yml sits at the repo root and sets `strict: true`, so any
+      # warning fails the job. No --config: discovering it from the root is
+      # exactly what the Xcode plugin does, so both apply the same rules to
+      # every file, app and tests alike.
       - name: Run SwiftLint
-        run: swiftlint lint --config iOSSkeletonApp/.swiftlint.yml --reporter github-actions-logging
+        run: swiftlint lint --reporter github-actions-logging
 
   test:
     name: Unit tests

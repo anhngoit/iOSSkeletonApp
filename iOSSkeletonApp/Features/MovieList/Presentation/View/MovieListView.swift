@@ -9,7 +9,10 @@ import SwiftUI
 
 struct MovieListView: View {
 
-    @StateObject var viewModel = MovieListViewModel()
+    /// `@ObservedObject`, not `@StateObject`: `MovieListScreenCoordinator`
+    /// owns the view model, and this view is rebuilt from `toPresentable()`
+    /// on every container render.
+    @ObservedObject var viewModel: MovieListViewModel
 
     let columns = [
         GridItem(.flexible()),
@@ -17,52 +20,50 @@ struct MovieListView: View {
     ]
 
     var body: some View {
-        NavigationStack {
-            ScrollView {
-                LazyVGrid(columns: columns, spacing: 16) {
-                    ForEach(Array(viewModel.movies.enumerated()), id: \.element.id) { index, movie in
-                        MovieItem(movie: movie)
-                            .onTapGesture {
-                                handleMovieSelection(at: index)
-                            }
-                    }
-                }
-                .padding()
-            }
-            .navigationTitle(viewModel.navigationTitle)
-            .task {
-                viewModel.onAppear()
-            }
-            .overlay {
-                if viewModel.isLoading {
-                    ProgressView("Loading...")
-                        .padding()
-                        .background(Color.gray.opacity(0.3))
-                        .cornerRadius(8)
-                } else if viewModel.isEmpty {
-                    ContentUnavailableView(
-                        "No movies",
-                        systemImage: "film",
-                        description: Text("Pull to refresh once you're back online.")
-                    )
+        ScrollView {
+            LazyVGrid(columns: columns, spacing: 16) {
+                ForEach(Array(viewModel.movies.enumerated()), id: \.element.id) { index, movie in
+                    MovieItem(movie: movie)
+                        .onTapGesture {
+                            handleMovieSelection(at: index)
+                        }
                 }
             }
-            .alert(item: $viewModel.activeAlert) { alertType in
-                switch alertType {
-                case .error(let message):
-                    return Alert(
-                        title: Text("Error"),
-                        message: Text(message),
-                        dismissButton: .default(Text("OK"))
-                    )
+            .padding()
+        }
+        .navigationTitle(viewModel.navigationTitle)
+        .task {
+            viewModel.onAppear()
+        }
+        .overlay {
+            if viewModel.isLoading {
+                ProgressView("Loading...")
+                    .padding()
+                    .background(Color.gray.opacity(0.3))
+                    .cornerRadius(8)
+            } else if viewModel.isEmpty {
+                ContentUnavailableView(
+                    "No movies",
+                    systemImage: "film",
+                    description: Text("Pull to refresh once you're back online.")
+                )
+            }
+        }
+        .alert(item: $viewModel.activeAlert) { alertType in
+            switch alertType {
+            case .error(let message):
+                return Alert(
+                    title: Text("Error"),
+                    message: Text(message),
+                    dismissButton: .default(Text("OK"))
+                )
 
-                case .success(let message):
-                    return Alert(
-                        title: Text("Success"),
-                        message: Text(message),
-                        dismissButton: .default(Text("OK"))
-                    )
-                }
+            case .success(let message):
+                return Alert(
+                    title: Text("Success"),
+                    message: Text(message),
+                    dismissButton: .default(Text("OK"))
+                )
             }
         }
     }
@@ -104,6 +105,8 @@ final class MockMovieListViewModel: MovieListViewModel {
 }
 
 #Preview {
-    MovieListView(viewModel: MockMovieListViewModel(movies: [Movie.stub()]))
+    NavigationStack {
+        MovieListView(viewModel: MockMovieListViewModel(movies: [Movie.stub()]))
+    }
 }
 #endif

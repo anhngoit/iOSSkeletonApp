@@ -11,6 +11,11 @@ import SwiftUI
 struct AppEntryPoint: App {
     @StateObject var networkMonitor = NetworkMonitor()
 
+    /// Retained here so the whole coordinator tree outlives every view
+    /// update. `init()` does no work, so constructing it on the unit-test
+    /// path below is harmless — nothing happens until `start()`.
+    @StateObject private var appCoordinator = AppCoordinator()
+
     /// Unit tests run inside this app as their host, so without a guard the
     /// real UI appears and fires a live API request on every test launch.
     private var isRunningUnitTests: Bool {
@@ -28,8 +33,9 @@ struct AppEntryPoint: App {
             if isRunningUnitTests {
                 EmptyView()
             } else {
-                MainTabView()
+                appCoordinator.toPresentable()
                     .environmentObject(networkMonitor)
+                    .task { appCoordinator.start() }
             }
         }
     }
